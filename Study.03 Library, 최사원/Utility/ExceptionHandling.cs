@@ -76,7 +76,7 @@ namespace Study._03_Library__최사원
 
         public bool KoreanCheck(string sentence)
         {
-            Regex koreanCheck1 = new Regex("[ㄱ-ㅎ].{1}");
+            Regex koreanCheck1 = new Regex("(?=.*[ㄱ-ㅎ]).{1}");
 
             Match match1 = koreanCheck1.Match(sentence);
 
@@ -89,8 +89,8 @@ namespace Study._03_Library__최사원
 
         public bool StrangeKoreanCheck(string sentence)
         {
-            Regex koreanCheck1 = new Regex("[가-힣].{1}");
-            Regex koreanCheck2 = new Regex("[ㄱ-ㅎ].{1}");
+            Regex koreanCheck1 = new Regex("(?=.*[가-힣]).{1}");
+            Regex koreanCheck2 = new Regex("(?=.*[ㄱ-ㅎ]).{1}");
 
             Match match1 = koreanCheck1.Match(sentence);
             Match match2 = koreanCheck2.Match(sentence);
@@ -129,13 +129,11 @@ namespace Study._03_Library__최사원
         {
             Regex idMatch1 = new Regex("(^([a-zA-z])(?=.*[0-9])).{4,10}$");
             Regex idMatch2 = new Regex("^[a-zA-z]{4,10}$");
-            Regex idMatch3 = new Regex("(?=.*[!@#$%^&*]){1}");
-
+       
             Match match1 = idMatch1.Match(id);
             Match match2 = idMatch2.Match(id);
-            Match match3 = idMatch3.Match(id);
-
-            if ((match1.Success || match2.Success) && id.Length < 11 && !match3.Success && !SpaceCheck(id))
+         
+            if ((match1.Success || match2.Success) && id.Length < 11 && !SpecialCharacterCheck(id) && !SpaceCheck(id) && !KoreanCheck(id))
                 return true;
 
             else

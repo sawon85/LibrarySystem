@@ -35,6 +35,7 @@ namespace Study._03_Library__최사원
                 id = Console.ReadLine();
                 if (exception.ID(id))
                     break;
+                Console.Write("아이디는 영어 (숫자 포함 가능) 4 ~ 10글자, 한글,공백,특수문자는 불가능합니다. ");
             }
 
             Console.Write("비밀번호를 입력하세요:");
@@ -43,6 +44,7 @@ namespace Study._03_Library__최사원
                 password = Console.ReadLine();
                 if (exception.Password(password))
                     break;
+                Console.Write("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글 공백 특수문자는 불가능합니다.");
             }
 
             Console.Write("이름을 입력하세요:");
@@ -69,6 +71,7 @@ namespace Study._03_Library__최사원
                     break;
             }
 
+            librarySystem.SignIn(id, password, name, address, phonenumber);
         }
 
         public void LoginMenu()
@@ -284,7 +287,8 @@ namespace Study._03_Library__최사원
 
         }
 
-        /*---USER---*/
+
+        /*--------------------------USER--------------------------*/
 
         private void UserMenu()
         {

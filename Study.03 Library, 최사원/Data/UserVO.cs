@@ -45,8 +45,6 @@ namespace Study._03_Library__최사원
 
         }
 
-
-
         public string ID
         {
             get
