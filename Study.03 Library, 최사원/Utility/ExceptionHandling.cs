@@ -63,7 +63,7 @@ namespace Study._03_Library__최사원
 
         public bool SpecialCharacterCheck(string sentence)
         {
-            Regex specialCharacterCheck = new Regex("(?=.*[!@#$%^&*]).{1}");
+            Regex specialCharacterCheck = new Regex("(?=.*[!@#$%^&*_-~]).{1}");
 
             Match match = specialCharacterCheck.Match(sentence);
 
@@ -171,10 +171,12 @@ namespace Study._03_Library__최사원
         public bool Address(string address)
         {
             Regex addressMatch = new Regex(@"((?=.*[가-힣])(?=.*\s)(?=.*[0-9]).{8,16})");
+            Regex specialCharacterCheck = new Regex("(?=.*[!@#$%^&*_~]).{1}");
 
             Match match = addressMatch.Match(address);
+            Match match2 = specialCharacterCheck.Match(address);
 
-            if (match.Success && !EnglishCheck(address) && SpaceCheck(address) && !SpecialCharacterCheck(address))
+            if (match.Success && !EnglishCheck(address) && !match2.Success && !SpecialCharacterCheck(address))
                 return true;
 
             else

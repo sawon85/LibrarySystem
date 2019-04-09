@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Study._03_Library__최사원
 {
-    class UI
+    class Menu
     {
         LibrarySystem librarySystem;
         ExceptionHandling exception;
 
-        public UI()
+        public Menu()
         {
+            Console.CursorVisible = false;
             librarySystem = new LibrarySystem();
             exception = new ExceptionHandling();
         }
@@ -21,7 +22,6 @@ namespace Study._03_Library__최사원
 
         private void LoginUI()
         {
-
 
         }
 
@@ -110,10 +110,10 @@ namespace Study._03_Library__최사원
 
             int button = int.Parse(Console.ReadLine());
 
-            BorrowWhatBook(userList[button]);
+            WhatBookBorrowed(userList[button]);
         }
 
-        private void BorrowWhatBook(UserVO user)
+        private void WhatBookBorrowed(UserVO user)
         {
 
             for(int i=0; i<user.BorrowingBooks.Count;i++)
@@ -148,10 +148,10 @@ namespace Study._03_Library__최사원
 
                     int button = int.Parse(input);
 
-                    if (who == Constants.USER_MENU)
+                    if (who == Constants.USER)
                         User_BookMenu(bookList[button - 1]);
 
-                    else if (who == Constants.ADMINISTRATOR_MENU)
+                    else if (who == Constants.ADMINISTRATOR)
 
                         Administrator_BookMenu(bookList[button - 1]);
 
@@ -175,19 +175,19 @@ namespace Study._03_Library__최사원
                 librarySystem.ReturnBook(book);
             }
 
-            else if (librarySystem.CanBorrowMore()&&book.NumberOfBook>0)
+            else if (librarySystem.CanBorrowMore(book))
             {
                 Console.WriteLine("대출하기");
                 librarySystem.BorrowBook(book);
                 Console.WriteLine("반납 날짜는 " + DateTime.Now.AddDays(14).ToLongDateString() + "입니다");
             }
 
-            else if(!librarySystem.CanBorrowMore())
+            else if(!librarySystem.DoesUserCanBorrow())
             {
                 Console.WriteLine("대여 가능한 권 수를 보두 대여 하셨기 때문에 대여할 수 없습니다.");
             }
 
-            else
+            else // 경우의 수는 책이 하나도 남지 않았을 때 뿐이다.
             {
                 Console.WriteLine("현재 남은 재고가 없기 때문에 대여하실 수 없습니다.");
             }
@@ -215,25 +215,10 @@ namespace Study._03_Library__최사원
             switch (exception.Button())
             {
                 case Constants.UPDATE_BOOK_COUNT:
-                    {
-                        Console.WriteLine("책 개수를 수정합니다. 현재 전체" + (book.NumberOfBook + book.NumberOfLoans) + "권 있습니다.");
-
-                        int numberOfBooks;
-
-                        while (true)
-                        {
-                            numberOfBooks = int.Parse(Console.ReadLine());
-
-                            if (numberOfBooks >= book.NumberOfLoans)
-                                break;
-
-                            Console.WriteLine("빌려간 책이" + book.NumberOfLoans + "개 있습니다. 이 보다 크게 적어주세요");
-                        }
-
-                        book.NumberOfBook = numberOfBooks;
-
+                    UpdateNumberOfBook(book);
                         break;
-                    }
+                    
+
                 case Constants.DELETE_BOOK :
                     {
                         if (book.NumberOfLoans > 0)
@@ -287,6 +272,37 @@ namespace Study._03_Library__최사원
 
         }
 
+        private void UpdateNumberOfBook(BookVO book)
+        {
+            Console.WriteLine("책 개수를 수정합니다. 현재 전체" + (book.NumberOfBook + book.NumberOfLoans) + "권 있습니다.");
+
+            int numberOfBooks;
+
+            while (true)
+            {
+                numberOfBooks = exception.Button();
+
+                if (numberOfBooks >= book.NumberOfLoans)
+                    break;
+
+                Console.WriteLine("빌려간 책이" + book.NumberOfLoans + "개 있습니다. 이 보다 크게 적어주세요");
+            }
+
+            librarySystem.UpdateNumberOfBook(book, numberOfBooks);
+
+        }
+
+        private void myBook()
+        {
+
+            foreach(borrowingBook myBookData in  librarySystem.MyBook())
+            {
+                Console.Write(myBookData.book.BookName + " : ");
+                Console.WriteLine(string.Format("{0:yyyy년 MM월 dd일}", myBookData.returnDate) + "까지 반납하셔야 됩니다.");
+
+            }
+
+        }
 
         /*--------------------------USER--------------------------*/
 
@@ -296,26 +312,26 @@ namespace Study._03_Library__최사원
             {
                 
                 Console.WriteLine("1. 책 목록");
-                Console.WriteLine("2. 회원 정보 수정");
-                Console.WriteLine("3. 내가 빌린 책");
+                Console.WriteLine("2. 내가 빌린 책");
+                Console.WriteLine("3. 정보 수정");
                 Console.WriteLine("4. 관리자 모드");
                 Console.WriteLine("5. 로그 아웃");
-                Console.WriteLine("6. 회원 탈퇴");
-                
+                Console.WriteLine("6. 회원 탈퇴"); 
 
                 switch (exception.Button())
                 {
                     case Constants.BOOKS:
-                        BookUI(librarySystem.BookData,Constants.USER_MENU);
+                        BookUI(librarySystem.BookData,Constants.USER);
                         break;
 
                     case Constants.MYBOOKS :
+                        myBook();
                         break;
 
                     case Constants.USER_SETTING:
                         break;
 
-                    case Constants.ADMINISTRATOR:
+                    case Constants.ADMINISTRATOR_MODE:
                         if (librarySystem.IntoAdministratorMode())
                             AdministratorMenu();
                         break;
@@ -349,7 +365,7 @@ namespace Study._03_Library__최사원
                 switch (exception.Button())
                 {
                     case Constants.BOOK_SETTING:
-                        BookUI(librarySystem.BookData,Constants.ADMINISTRATOR_MENU);
+                        BookUI(librarySystem.BookData,Constants.ADMINISTRATOR);
                         break;
 
                     case Constants.ALL_OF_USERS:

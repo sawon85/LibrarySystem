@@ -9,6 +9,7 @@ namespace Study._03_Library__최사원
 {
     class LibrarySystem
     {
+        
         List<BookVO> bookData;
         List<UserVO> userData;
         UserVO loginUser;
@@ -35,7 +36,7 @@ namespace Study._03_Library__최사원
             userData.Add(administrator);
         }
 
-        private void SavePersonData(string id, string password,string name, string address, string phonenumber)
+        private void SetPersonData(string id, string password, string name, string address, string phonenumber)
         {
             UserVO person = new UserVO(++userCount, id, password, name, address, phonenumber);
             userData.Add(person);
@@ -44,14 +45,14 @@ namespace Study._03_Library__최사원
 
         private void SavePeopleData()
         {
-            SavePersonData("aaaaaa", "aaaaaabb","김영진","인천광역시 논현동", "01011111111");
-            SavePersonData("bbbbbb", "bbbbbbbb","김도훈" ,"경기도 부천시", "01022222222");
-            SavePersonData("cccccc", "cccccccc","김성엽" ,"서울특별시 건대 언저리", "01033333333");
-            SavePersonData("dddddd", "dddddddd", "유진","양천구 목동", "01044444444");
-            SavePersonData("dddddd", "dddddddd", "김수정", "  ", "01044444444");
+            SetPersonData("aaaaaa", "aaaaaabb", "김영진", "인천광역시 논현동", "01011111111");
+            SetPersonData("bbbbbb", "bbbbbbbb", "김도훈", "경기도 부천시", "01022222222");
+            SetPersonData("cccccc", "cccccccc", "김성엽", "서울특별시 건대 언저리", "01033333333");
+            SetPersonData("dddddd", "dddddddd", "유진", "양천구 목동", "01044444444");
+            SetPersonData("dddddd", "dddddddd", "김수정", "  ", "01044444444");
         }
 
-        private void SaveBookData(string bookName, string publisher, string writer, int numberOfBook)
+        private void SetBookData(string bookName, string publisher, string writer, int numberOfBook)
         {
             BookVO book = new BookVO(++bookCount, bookName, publisher, writer, numberOfBook);
             bookData.Add(book);
@@ -59,11 +60,11 @@ namespace Study._03_Library__최사원
 
         private void SaveBooksData()
         {
-            SaveBookData("컴퓨터 시스템 구조론", "삼성", "김원일", 30);
-            SaveBookData("알고리즘 및 실습", "LG", "국형준", 20);
-            SaveBookData("돈까스 더 맛있게 먹는 법", "힙찔이", "스윙스", 10);
-            SaveBookData("세종대에서 살아남기", "신구", "세종냥이", 30);
-            SaveBookData("해리포터", "SK", "JK.롤링", 30);
+            SetBookData("컴퓨터 시스템 구조론", "삼성", "김원일", 30);
+            SetBookData("알고리즘 및 실습", "LG", "국형준", 20);
+            SetBookData("돈까스 더 맛있게 먹는 법", "힙찔이", "스윙스", 10);
+            SetBookData("세종대에서 살아남기", "신구", "세종냥이", 30);
+            SetBookData("해리포터", "SK", "JK.롤링", 30);
         }
 
 
@@ -74,16 +75,16 @@ namespace Study._03_Library__최사원
 
             int userCode = ++userCount;
 
-            UserVO newperson = new UserVO(userCode, id, password, name,address, phonenumber);
+            UserVO newperson = new UserVO(userCode, id, password, name, address, phonenumber);
 
             userData.Add(newperson);
         }
 
 
-        private bool InputPassword(UserVO user, string inputPassword)
+        private bool PasswordChecking(UserVO user, string inputPassword)
         {
 
-            if (user.PasswordChecking(inputPassword))
+            if (user.Password==inputPassword)
             {
                 loginUser = user;
                 Console.WriteLine("login");
@@ -103,7 +104,7 @@ namespace Study._03_Library__최사원
             foreach (UserVO user in userData)
             {
                 if (user.ID == inputID)
-                    return InputPassword(user, inputPassword);
+                    return PasswordChecking(user, inputPassword);
             }
 
             return false;
@@ -117,7 +118,7 @@ namespace Study._03_Library__최사원
 
         public bool Withdrawal()
         {
-            if (loginUser.Code == 0)
+            if (loginUser.Code == Constants.ADMINISTRATOR)
             {
                 Console.WriteLine("관리자는 탈퇴하실 수 없습니다.");
                 return false;
@@ -134,33 +135,98 @@ namespace Study._03_Library__최사원
             return true;
         }
 
+        public virtual bool BorrowingBook(BookVO book)
+        {
+
+            if (CanBorrowMore(book))
+            {
+                borrowingBook newBook;
+                newBook.book = book;
+                Console.WriteLine(newBook.book.BookName);
+                newBook.returnDate = DateTime.Now.AddDays(14);
+                loginUser.BorrowingBooks.Add(newBook);
+                return true;
+            }
+
+            return false;
+        }
+
+        public void ReturnBook(BookVO bookReturned)
+        {
+            foreach (borrowingBook book in loginUser.BorrowingBooks)
+            {
+                if (bookReturned == book.book)
+                {
+                    loginUser.BorrowingBooks.Remove(book);
+                    return;
+                }
+
+            }
+        }
+
+        public DateTime? IsBorrowedAlready(BookVO checkingBook)
+        {
+
+            foreach (borrowingBook book in loginUser.BorrowingBooks)
+            {
+                if (checkingBook == book.book)
+                {
+                    return book.returnDate;
+                }
+            }
+
+            return null;
+        }
+
+        public bool DoesUserCanBorrow()
+        {
+            if (loginUser.BorrowingBooks.Count == loginUser.NumberOfMax)
+                return false;
+
+            return true;
+        }
+
+        public bool CanBorrowMore(BookVO book)
+        {
+            if (DoesUserCanBorrow() && IsBookEnough(book))
+                return true;
+
+            return false;
+        }
+
+
         /*BOOK*/
 
         public void BorrowBook(BookVO book)
         {
-            if (book.NumberOfBook > 0 && loginUser.BorrowingBook(book))
-            {
-                book.Borrowed();
-            }
-
+                 BorrowingBook(book);
+                book.NumberOfLoans--;
+          
         }
 
         public DateTime? IsBookBorrowed(BookVO book)
         {
-            return loginUser.IsBorrowedFrom(book);
+            return IsBorrowedAlready(book);
 
         }
 
-        public bool CanBorrowMore()
+        public bool IsBookEnough(BookVO book)
         {
-            return loginUser.CanBorrowMore();
-        }
-    
-        public void ReturnBook(BookVO book)
-        {
-            loginUser.ReturnBook(book);
-            book.ReturnBook();
+            if (book.NumberOfBook==0)
+                return false;
 
+            return true;
+        }
+
+  
+        public List<borrowingBook> MyBook()
+        {
+            return loginUser.BorrowingBooks;
+        }
+
+        public void UpdateNumberOfBook(BookVO book,int numberOfBook)
+        {
+            book.NumberOfBook = numberOfBook;
         }
 
         /*AdministratorMode*/
@@ -201,8 +267,8 @@ namespace Study._03_Library__최사원
 
       public void DeleteBook(BookVO book)
         {
-            bookData.Remove(book);
 
+            bookData.Remove(book);
         }
 
     }

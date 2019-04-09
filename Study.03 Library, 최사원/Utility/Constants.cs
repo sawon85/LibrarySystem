@@ -18,8 +18,8 @@ namespace Study._03_Library__최사원
     {
         /*---code ---*/
 
-        public const int USER_MENU = 0;
-        public const int ADMINISTRATOR_MENU = 1;
+        public const int ADMINISTRATOR = 0;
+        public const int USER = 1;
 
 
 
@@ -33,7 +33,7 @@ namespace Study._03_Library__최사원
         public const int BOOKS = 1;
         public const int MYBOOKS = 2;
         public const int USER_SETTING = 3;
-        public const int ADMINISTRATOR = 4;
+        public const int ADMINISTRATOR_MODE = 4;
         public const int LOGOUT = 5;
         public const int WITHDRAWAL = 6;
 

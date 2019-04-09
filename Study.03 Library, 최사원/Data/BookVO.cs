@@ -22,6 +22,7 @@ namespace Study._03_Library__최사원
 
         public string BookName
         {
+         
             get
             {
                 return bookName;
@@ -59,9 +60,15 @@ namespace Study._03_Library__최사원
 
         public int NumberOfLoans
         {
+
             get
             {
                 return numberOfLoans;
+            }
+
+            set
+            {
+                numberOfLoans = value;
             }
         }
 
@@ -75,23 +82,11 @@ namespace Study._03_Library__최사원
            
         }
 
-
         public void newBook(int numberOfBook)
         {
             this.numberOfBook += numberOfBook;
         }
 
-        public void Borrowed()
-        {
-            numberOfBook--;
-            numberOfLoans++;
-        }
-        
-        public void ReturnBook()
-        {
-            numberOfBook++;
-            numberOfLoans--;
-        }
 
     }
 }

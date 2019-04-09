@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 
 namespace Study._03_Library__최사원
 {
@@ -16,7 +11,7 @@ namespace Study._03_Library__최사원
         private string password;
         private string address;
         private string phonenumber;
-        private int canBorrow = 2;
+        private int numberOfMax;
 
         List<borrowingBook> borrowingBooks = new List<borrowingBook>();
 
@@ -30,6 +25,7 @@ namespace Study._03_Library__최사원
             this.name = name;
             this.address = address;
             this.phonenumber = phonenumber;
+            numberOfMax = 2;
 
         }
 
@@ -41,7 +37,7 @@ namespace Study._03_Library__최사원
             name = "힘들다";
             address = "세종대 학술 정보원";
             phonenumber = "010-7170-5993";
-            canBorrow = 3;
+            numberOfMax = 3;
 
         }
 
@@ -57,7 +53,10 @@ namespace Study._03_Library__최사원
 
         public string Password
         {
-            //password는 get할 수 없음
+            get
+            {
+                return password;
+            }
 
             set
             {
@@ -105,6 +104,14 @@ namespace Study._03_Library__최사원
             }
         }
 
+        public int NumberOfMax
+        {
+            get
+            {
+                return numberOfMax;
+            }
+        }
+
         public List<borrowingBook> BorrowingBooks
         {
             get
@@ -112,67 +119,6 @@ namespace Study._03_Library__최사원
                 return borrowingBooks;
             }
         }
-
-        public bool PasswordChecking(string beforeChecking)
-        {
-            if (password == beforeChecking)
-                return true;
-
-            return false;
-        }
-
-
-        public virtual bool BorrowingBook(BookVO book)
-        {
-
-            if (borrowingBooks.Count < canBorrow)
-            {
-                borrowingBook newBook;
-                newBook.book = book;
-                Console.WriteLine(newBook.book.BookName);
-                newBook.returnDate = DateTime.Now.AddDays(14);
-                borrowingBooks.Add(newBook);
-                return true;
-            }
-
-            return false;
-        }
-
-        public void ReturnBook(BookVO bookReturned)
-        {
-            foreach (borrowingBook book in borrowingBooks)
-            {
-                if(bookReturned==book.book)
-                {
-                    borrowingBooks.Remove(book);
-                    return;
-                }
-
-            }      
-        }
-
-        public DateTime? IsBorrowedFrom(BookVO checkingBook)
-        {
-          
-            foreach(borrowingBook book in borrowingBooks)
-            {
-                if (checkingBook == book.book)
-                {
-                    return book.returnDate;
-                }
-            }
-
-            return null;
-        }
-
-        public bool CanBorrowMore()
-        {
-            if (borrowingBooks.Count == canBorrow)
-                return false;
-
-            return true;
-        }
-
     }
 
 }

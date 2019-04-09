@@ -13,7 +13,7 @@ namespace Study._03_Library__최사원
         static void Main(string[] args)
         {
 
-           UI ui = new UI();
+           Menu ui = new Menu();
             ui.LoginMenu();
             
         }
