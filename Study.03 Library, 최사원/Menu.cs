@@ -10,25 +10,23 @@ namespace Study._03_Library__최사원
     {
         LibrarySystem librarySystem;
         ExceptionHandling exception;
+        UI ui;
 
         public Menu()
         {
             Console.CursorVisible = false;
             librarySystem = new LibrarySystem();
             exception = new ExceptionHandling();
+            ui = new UI();
         }
 
         /*--- Login ---*/
 
-        private void LoginUI()
-        {
-
-        }
-
-        public void SignInUI()
+ 
+        public void SignIn()
         {
             string id, password, name, phonenumber, address;
-
+        
             Console.Write("아이디를 입력하세요:");
             while (true)
             {
@@ -76,28 +74,40 @@ namespace Study._03_Library__최사원
 
         public void LoginMenu()
         {
+            ui.IntroUI();
             while (true)
             {
-                Console.WriteLine("1. 로그인");
-                Console.WriteLine("2. 회원가입");
 
                 switch (exception.Button())
                 {
                     case Constants.LOGIN:
-                        if (librarySystem.Login())
+                        if (Login())
                             UserMenu();
+                        ui.Alert("로그인에 실패하셨습니다,.");
                         break;
 
                     case Constants.SIGNIN:
-                        SignInUI();
+                        SignIn();
                         break;
                 }
             }
 
         }
 
+        public bool Login()
+        {
+            ui.LoginUI();
+
+            Console.Write("아이디를 입력하세요:");
+            string inputID = Console.ReadLine();
+            Console.Write("비밀번호를 입력하세요:");
+            string inputPassword = Console.ReadLine();
+
+            return librarySystem.Login(inputID, inputPassword);
+        }
+
         /*---USER---*/
-        private void UserUI(List<UserVO> userList)
+        private void ShowUsers(List<UserVO> userList)
         {
             UserVO user;
 
@@ -126,15 +136,20 @@ namespace Study._03_Library__최사원
 
         /*---BOOK---*/
 
-        private void BookUI(List<BookVO> bookList, int who)
+        private void ShowBooks(List<BookVO> bookList, int who)
         {
 
             BookVO book;
+            ui.BookUI("",ui.Half2Full("책 이름"),ui.Half2Full("출판사"), ui.Half2Full("작가"), ui.Half2Full("남은 책"));
+            Console.WriteLine();
+
 
             for (int index = 0; index < bookList.Count; index++)
             {
                 book = bookList[index];
-                Console.WriteLine(index + 1 + ".   " + book.BookName + book.NumberOfBook + book.Publisher + book.Writer);
+
+                ui.BookUI(ui.Half2Full((index+1).ToString()),ui.Half2Full(book.BookName),ui.Half2Full(book.Publisher),ui.Half2Full(book.Writer),ui.Half2Full(book.NumberOfBook.ToString()));
+               // Console.WriteLine(index + 1 + ".   " + book.BookName + book.NumberOfBook + book.Publisher + book.Writer);
 
             }
 
@@ -157,12 +172,11 @@ namespace Study._03_Library__최사원
 
                     break;
 
-                default:
-
-                    SearchingBook(librarySystem.BookData,input,who);
-                    break;
             }
         }
+
+
+
 
         private void User_BookMenu(BookVO book)
         {
@@ -194,8 +208,12 @@ namespace Study._03_Library__최사원
 
         }
 
-        private void SearchingBook(List<BookVO> bookData,string check, int who)
+        private void SearchingBook(List<BookVO> bookData,int who)
         {
+            ui.SearchingBookUI();
+
+            string check = Console.ReadLine();
+
             List<BookVO> bookSearched = new List<BookVO>();
 
             foreach (BookVO book in bookData)
@@ -204,7 +222,7 @@ namespace Study._03_Library__최사원
                     bookSearched.Add(book);
             }
 
-            BookUI(bookSearched, who);
+            ShowBooks(bookSearched, who);
         }
 
         private void Administrator_BookMenu(BookVO book)
@@ -312,7 +330,8 @@ namespace Study._03_Library__최사원
             {
                 
                 Console.WriteLine("1. 책 목록");
-                Console.WriteLine("2. 내가 빌린 책");
+                Console.WriteLine("2. 책 검색");
+                Console.WriteLine("3. 내가 빌린 책");
                 Console.WriteLine("3. 정보 수정");
                 Console.WriteLine("4. 관리자 모드");
                 Console.WriteLine("5. 로그 아웃");
@@ -321,9 +340,12 @@ namespace Study._03_Library__최사원
                 switch (exception.Button())
                 {
                     case Constants.BOOKS:
-                        BookUI(librarySystem.BookData,Constants.USER);
+                        ShowBooks(librarySystem.BookData,Constants.USER);
                         break;
 
+                    case Constants.SEARCHING_BOOK:
+                        SearchingBook(librarySystem.BookData,Constants.USER);
+                        break;
                     case Constants.MYBOOKS :
                         myBook();
                         break;
@@ -365,11 +387,11 @@ namespace Study._03_Library__최사원
                 switch (exception.Button())
                 {
                     case Constants.BOOK_SETTING:
-                        BookUI(librarySystem.BookData,Constants.ADMINISTRATOR);
+                        ShowBooks(librarySystem.BookData,Constants.ADMINISTRATOR);
                         break;
 
                     case Constants.ALL_OF_USERS:
-                        UserUI(librarySystem.UserData);
+                        ShowUsers(librarySystem.UserData);
                         break;
 
                     case Constants.BOOK_BORROWED:

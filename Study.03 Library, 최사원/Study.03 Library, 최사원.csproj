@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI.cs" />
     <Compile Include="Utility\Constants.cs" />
     <Compile Include="Data\BookVO.cs" />
     <Compile Include="Utility\ExceptionHandling.cs" />

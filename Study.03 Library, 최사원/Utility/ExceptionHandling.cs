@@ -24,7 +24,7 @@ namespace Study._03_Library__최사원
 
         public bool SpaceCheck(string sentence)
         {
-            Regex blankMatch = new Regex(@"\s{1}");
+            Regex blankMatch = new Regex(@"(?=.*[\s]){1}");
 
             Match match = blankMatch.Match(sentence);
 
@@ -63,7 +63,7 @@ namespace Study._03_Library__최사원
 
         public bool SpecialCharacterCheck(string sentence)
         {
-            Regex specialCharacterCheck = new Regex("(?=.*[!@#$%^&*_-~]).{1}");
+            Regex specialCharacterCheck = new Regex(@"(?=.*[~.,`!@\#$%^&*\()\=+|\\/:;?""<>']).{1}");
 
             Match match = specialCharacterCheck.Match(sentence);
 
@@ -96,10 +96,10 @@ namespace Study._03_Library__최사원
             Match match2 = koreanCheck2.Match(sentence);
 
             if (!match1.Success && match2.Success)
-                return false;
+                return true;
 
             else
-                return true;
+                return false;
         }
 
         public bool OnlyNumberCheck(string sentence)
@@ -118,7 +118,7 @@ namespace Study._03_Library__최사원
 
             Match match = nameMatch.Match(name);
 
-            if (match.Success && name.Length < 5 && StrangeKoreanCheck(name) && !SpaceCheck(name) && !EnglishCheck(name) && !SpecialCharacterCheck(name))
+            if (match.Success && name.Length < 5 && !StrangeKoreanCheck(name) && !SpaceCheck(name) && !EnglishCheck(name) && !SpecialCharacterCheck(name))
                 return true;
 
             else
@@ -142,13 +142,13 @@ namespace Study._03_Library__최사원
 
         public bool Password(string password)  // 8~16 영어, 특수문자 숫자 필수 포함
         {
-            Regex passwordMatch1 = new Regex("((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,16})");
+            Regex passwordMatch1 = new Regex(@"((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~.,`!@\#$%^&*\()\=+|\\/:;?""<>']).{8,16})");
 
 
             Match match1 = passwordMatch1.Match(password);
 
 
-            if (match1.Success && EnglishCheck(password) && SpecialCharacterCheck(password) && NumberCheck(password) && !SpaceCheck(password) && password.Length < 16)
+            if (match1.Success && EnglishCheck(password) && NumberCheck(password) && !SpaceCheck(password) && password.Length < 16)
                 return true;
 
             else

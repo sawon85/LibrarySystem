@@ -62,9 +62,12 @@ namespace Study._03_Library__최사원
         {
             SetBookData("컴퓨터 시스템 구조론", "삼성", "김원일", 30);
             SetBookData("알고리즘 및 실습", "LG", "국형준", 20);
-            SetBookData("돈까스 더 맛있게 먹는 법", "힙찔이", "스윙스", 10);
             SetBookData("세종대에서 살아남기", "신구", "세종냥이", 30);
             SetBookData("해리포터", "SK", "JK.롤링", 30);
+            SetBookData("고요할수록 밝아지는 것들", "수오서재", "혜민 스님", 30);
+            SetBookData("나는 나로 살기로 했다(100쇄 기념 스페셜 에디션)(양장본 HardCover)", "마음의숲", "김수현", 30);
+            SetBookData("곰돌이 푸, 행복한 일은 매일 있어(한정판 벚꽃 에디션)(양장본 HardCover) ", "일에이치코리아", "곰돌이 푸 (원작)", 30);
+            SetBookData("해커스 토익 기출 보카(TOEIC VOCA)(2019)(5판) ", "해커스어학연구소", "David Cho", 30);
         }
 
 
@@ -94,12 +97,8 @@ namespace Study._03_Library__최사원
             return false;
         }
 
-        public bool Login()
+        public bool Login(string inputID, string inputPassword)
         {
-            Console.Write("아이디를 입력하세요:");
-            string inputID = Console.ReadLine();
-            Console.Write("비밀번호를 입력하세요:");
-            string inputPassword = Console.ReadLine();
 
             foreach (UserVO user in userData)
             {
@@ -200,7 +199,8 @@ namespace Study._03_Library__최사원
         public void BorrowBook(BookVO book)
         {
                  BorrowingBook(book);
-                book.NumberOfLoans--;
+                book.NumberOfLoans++;
+            book.NumberOfBook--;
           
         }
 
@@ -224,9 +224,10 @@ namespace Study._03_Library__최사원
             return loginUser.BorrowingBooks;
         }
 
+
         public void UpdateNumberOfBook(BookVO book,int numberOfBook)
         {
-            book.NumberOfBook = numberOfBook;
+            book.NumberOfBook = numberOfBook; 
         }
 
         /*AdministratorMode*/
