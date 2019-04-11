@@ -146,7 +146,7 @@ namespace Study._03_Library__최사원
                         if (Login())
                             UserMenu();
                         else
-                            ui.Alert("로그인에 실패하셨습니다,.");  //로그인 실패 시에 완료
+                            ui.Alert("로그인에 실패하셨습니다,.", warning3: "<<Enter>>");  //로그인 실패 시에 완료
                         Console.Read();  //엔터 누르면 삭제
                         break;
 
@@ -336,13 +336,13 @@ namespace Study._03_Library__최사원
 
             else if (!librarySystem.DoesUserCanBorrow())  // 사용자가 대여할 수 있는 여유가 있음
             {
-                ui.Alert("대여 가능한 권 수를 보두 대여 하셨기 때문에 대여할 수 없습니다.");
+                ui.Alert("대여 가능한 권 수를 모두 대여 하셨기 때문에 대여할 수 없습니다.", warning3: "<<Enter>>");
                 Console.Read();
             }
 
             else // 마지막 경우의 수는 책이 하나도 남지 않았을 때 뿐이다.
             {
-                ui.Alert("현재 남은 재고가 없기 때문에 대여하실 수 없습니다.");
+                ui.Alert("현재 남은 재고가 없기 때문에 대여하실 수 없습니다.",warning3:"<<Enter>>");
                 Console.Read();
             }
 
@@ -495,7 +495,7 @@ namespace Study._03_Library__최사원
 
             if (librarySystem.MyBook().Count == 0) //빌린 책이 없으면
             {
-                ui.Alert("현재 빌린 책이 없습니다."); 
+                ui.Alert("현재 빌린 책이 없습니다.", warning3: "<<Enter>>"); 
                 Console.Read();
                 return;
             }
@@ -508,7 +508,6 @@ namespace Study._03_Library__최사원
 
             foreach (borrowingBook myBookData in librarySystem.MyBook())  //모든 책 데이터 출력 -> 책 목록과는 다르게 반납날짜를 출력해준다,
             {
-                Console.Write(myBookData.book.BookName + " : ");
 
                 ui.MyBookUI(ui.Half2Full(index.ToString()), ui.Half2Full(myBookData.book.BookName), ui.Half2Full(string.Format("{0:yyyy년 MM월 dd일}", myBookData.returnDate) + "까지 반납하셔야 됩니다."));
                 Console.WriteLine();
@@ -690,6 +689,7 @@ namespace Study._03_Library__최사원
 
                 }
 
+            Console.Write("\n\n<< E N T E R >>");
             Console.Read();
             return;
 

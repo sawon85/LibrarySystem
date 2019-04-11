@@ -34,7 +34,7 @@ namespace Study._03_Library__최사원
             this.code = code;
             id = "Admin";
             password = "835";
-            name = "힘들다";
+            name = "관리자";
             address = "세종대 학술 정보원";
             phonenumber = "01071705993";
             numberOfMax = 3;

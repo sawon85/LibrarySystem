@@ -66,14 +66,18 @@ namespace Study._03_Library__최사원
         {
             SetBookData("컴퓨터 시스템 구조론", "삼성", "김원일", 30);
             SetBookData("알고리즘 및 실습", "LG", "국형준", 20);
-            SetBookData("세종대에서 살아남기", "신구", "세종냥이", 30);
+            SetBookData("세종대에서 살아남기", "신구", "세종냥이", 1);
             SetBookData("해리포터", "SK", "JK.롤링", 0);
-            SetBookData("고요할수록 밝아지는 것들", "수오서재", "혜민 스님", 30);
-            SetBookData("나는 나로 살기로 했다(100쇄 기념 스페셜 에디션)(양장본 HardCover)", "마음의숲", "김수현", 30);
+            SetBookData("고요할수록 밝아지는 것들", "수오서재", "혜민 스님", 25);
+            SetBookData("나는 나로 살기로 했다(100쇄 기념 스페셜 에디션)(양장본 HardCover)", "마음의숲", "김수현", 28);
             SetBookData("곰돌이 푸, 행복한 일은 매일 있어(한정판 벚꽃 에디션)(양장본 HardCover) ", "일에이치코리아", "곰돌이 푸 (원작)", 30);
-            SetBookData("해커스 토익 기출 보카(TOEIC VOCA)(2019)(5판) ", "해커스어학연구소", "David Cho", 30);
+            SetBookData("해커스 토익 기출 보카(TOEIC VOCA)(2019)(5판) ", "해커스어학연구소", "David Cho", 0);
             SetBookData("OpenCV 4로 배우는 컴퓨터 비전과 머신 러닝) ", "길벗", "황선규", 1);
             SetBookData("Adventures of Sherlock Homes (Oxford World Classics)(New Jacket)", "Oxford University Press, USA", "Doyle, Arthur Conan ", 1);
+            SetBookData("마법천자문. 44: 죄를 씻어 내라! 목욕할 욕", "아울북", "김현수", 9);
+            SetBookData("죽고 싶지만 떡볶이는 먹고 싶어", "흔", "백세희", 2);
+            SetBookData("나미야 잡화점의 기적(양장본 HardCover)", "하가시노 게이고", "현대문학", 1);
+            SetBookData("Who? Special 손흥민(아시안 게임 금메달 기념 한정판)(양장본 HardCover) ", "강진희", "다산어린이", 3);
         }
 
 
@@ -223,7 +227,7 @@ namespace Study._03_Library__최사원
 
             Console.WriteLine(" 이름 : {0} \n",loginUser.Name);
 
-            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Password);
+            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Phonenumber);
 
             Console.WriteLine(" 주소 : \n  {0} \n \n \n ", loginUser.Address);
 
