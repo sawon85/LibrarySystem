@@ -18,6 +18,14 @@ namespace Study._03_Library__최사원
 
         }
 
+        public void DeleteReadLine(int length)
+        {
+            for (int i = 0; i < length; i++)
+                Console.Write(" ");
+
+        }
+
+
         public string Half2Full(string sHalf)
 
         {
@@ -68,12 +76,19 @@ namespace Study._03_Library__최사원
 
         public void SearchingBookUI()
         {
-            string text = System.IO.File.ReadAllText(@"txt\Searching.txt", Encoding.Default); // 저장된 txt에서 game ui를 가져와 출력
+            Console.Clear();
+            Console.SetWindowSize(56, 15);
+            string text = System.IO.File.ReadAllText(@"txt\Searching.txt", Encoding.Default);
             Console.WriteLine("{0}", text);
+
+            Console.SetCursorPosition(Constants.SEARCHING_BOOK_INPUT_X, Constants.SEARCHING_BOOK_INPUT_Y);
+            Console.Write("책 검색 (q : 뒤로가기) : ");
+
         }
 
         public void BookUI(string index ="", string bookName = "", string publisher = "", string writer ="", string numberOfBooks ="")
         {
+
             Console.WriteLine();
 
             if (bookName != "" || publisher != "" || writer != "" || numberOfBooks != "")
@@ -87,16 +102,46 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void Alert(string warning, string warning2 = "")
+
+        public void MyBookUI(string index = "", string bookName = "", string returnDate = "")
         {
+
+            Console.WriteLine();
+
+            if (bookName != "" || returnDate != "" )
+
+                BookUI(PrintOfLine(index, Constants.INDEX_LENGTH_OF_LINE),
+                    PrintOfLine(bookName, Constants.NAME_LENGTH_OF_LINE),
+                    PrintOfLine(returnDate, 30)
+           
+                    );
+
+        }
+
+
+
+
+        public void Alert(string warning, string warning2 = "", string warning3 = "")
+        {
+            Console.Clear();
             string text = System.IO.File.ReadAllText(@"txt\Alert.txt", Encoding.Default); 
             Console.WriteLine("{0}", text);
             Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME);
-            Console.WriteLine(warning);
+            Console.Write(warning);
             if (warning2 != "")
             {
-                Console.SetCursorPosition(Constants.ALERT_X_FRAME+10, Constants.ALERT_Y_FRAME + 1);
-                Console.WriteLine(warning2);
+                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 1);
+                Console.Write(warning2);
+
+            }
+
+
+            if (warning3 != "")
+            {
+
+                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 2);
+                Console.Write(warning3);
+
             }
 
         }
@@ -112,8 +157,32 @@ namespace Study._03_Library__최사원
         public void LoginUI()
         {
             Console.Clear();
-            Console.SetWindowSize(42, 24);
+            Console.SetWindowSize(79, 16);
             string text = System.IO.File.ReadAllText(@"txt\Login.txt", Encoding.Default);
+            Console.Write("{0}", text);
+        }
+
+        public void UserMenuUI()
+        {
+            Console.Clear();
+            Console.SetWindowSize(34, 32);
+            string text = System.IO.File.ReadAllText(@"txt\UserMenu.txt", Encoding.Default);
+            Console.Write("{0}", text);
+        }
+
+        public void AdministratorMenuUI()
+        {
+            Console.Clear();
+            Console.SetWindowSize(34, 32);
+            string text = System.IO.File.ReadAllText(@"txt\AdministratorMenu.txt", Encoding.Default);
+            Console.Write("{0}", text);
+        }
+
+        public void BookMenuUI()
+        {
+            Console.Clear();
+            Console.SetWindowSize(34, 32);
+            string text = System.IO.File.ReadAllText(@"txt\BookSetting.txt", Encoding.Default);
             Console.Write("{0}", text);
         }
 

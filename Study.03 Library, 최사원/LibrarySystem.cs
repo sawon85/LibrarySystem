@@ -141,7 +141,6 @@ namespace Study._03_Library__최사원
             {
                 borrowingBook newBook;
                 newBook.book = book;
-                Console.WriteLine(newBook.book.BookName);
                 newBook.returnDate = DateTime.Now.AddDays(14);
                 loginUser.BorrowingBooks.Add(newBook);
                 return true;
@@ -157,6 +156,8 @@ namespace Study._03_Library__최사원
                 if (bookReturned == book.book)
                 {
                     loginUser.BorrowingBooks.Remove(book);
+                    bookReturned.NumberOfBook++;
+                    bookReturned.NumberOfLoans--;
                     return;
                 }
 

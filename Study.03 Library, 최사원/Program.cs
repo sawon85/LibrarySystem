@@ -14,7 +14,7 @@ namespace Study._03_Library__최사원
         {
 
            Menu ui = new Menu();
-            ui.LoginMenu();
+            ui.IntroMenu();
             
         }
     }

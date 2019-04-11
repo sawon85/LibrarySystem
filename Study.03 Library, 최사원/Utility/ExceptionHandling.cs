@@ -201,20 +201,20 @@ namespace Study._03_Library__최사원
 
         /*---숫자 입력, 숫자 반환---*/
 
-        public int Button()
+        public int? Button()
         {
             string button;
 
-            while (true)
-            {
+   
                 button = Console.ReadLine();
 
                 if (OnlyNumberCheck(button))
                 {
                     return int.Parse(button);
                 }
-            }
 
+            return null;
+   
         }
     }
 }
