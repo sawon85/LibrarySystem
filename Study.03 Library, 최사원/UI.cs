@@ -54,23 +54,23 @@ namespace Study._03_Library__최사원
 
         private string PrintOfLine(string sentence, int maximumLengthOfLine)
         {
-            if (sentence.Length > maximumLengthOfLine)
+            if (sentence.Length > maximumLengthOfLine)  // 최대 길이보다 출력해야할 문자열이 더 길면
             {
-                Console.Write(" | " + sentence.Substring(0, maximumLengthOfLine) + " | ");
-                return sentence.Substring(maximumLengthOfLine);
-
+                Console.Write(" | " + sentence.Substring(0, maximumLengthOfLine) + " | "); //출력하고
+                return sentence.Substring(maximumLengthOfLine); //출력못한 길이 반환.
+            
             }
 
             else
             {
-                /*오른쪽 정렬을 위해 출력할 이름 앞에 공백이 반각문자이기 때문에 출력 횟수를 2배 해줘야 한다.*/
+                /*오른쪽 정렬을 위해 string 앞에 출력할 공백이 반각문자이기 때문에 출력 횟수를 2배 해줘야 한다.*/
                 // 계산
-                // 출력해야할 공백 = (최대 출력할 문자 - 출력할 문자) *2 + 출력할 문자
-                //
+                // 출력해야할 공백 = (한줄에 출력할 최대 길이 - 출력할 문자) *2 
+                // 전체 string.length = 출력해야할 공백 + 출력할 문자
 
                 int length = maximumLengthOfLine * 2 - sentence.Length;
-                Console.Write(" | "+ String.Format("{0," + length + "}", sentence) + " | ");
-                return "";
+                Console.Write(" | "+ String.Format("{0," + length + "}", sentence) + " | "); // 오른쪽 정렬 STRING출력 후
+                return ""; // 남은 출력 없음 반환.
             }
         }
 
@@ -94,11 +94,25 @@ namespace Study._03_Library__최사원
             if (bookName != "" || publisher != "" || writer != "" || numberOfBooks != "")
 
             BookUI(PrintOfLine(index, Constants.INDEX_LENGTH_OF_LINE),
-                PrintOfLine(bookName, Constants.NAME_LENGTH_OF_LINE),
-                PrintOfLine(publisher,Constants.PUBLISHER_LENGTH_OF_LINE),
-                PrintOfLine(writer, Constants.WRITER_LENGTH_OF_LINE),
-                PrintOfLine(numberOfBooks,Constants.NUMBER_LENGTH_OF_LINE)
-                );
+                   PrintOfLine(bookName, Constants.NAME_LENGTH_OF_LINE),
+                   PrintOfLine(publisher,Constants.PUBLISHER_LENGTH_OF_LINE),
+                   PrintOfLine(writer, Constants.WRITER_LENGTH_OF_LINE),
+                   PrintOfLine(numberOfBooks,Constants.NUMBER_LENGTH_OF_LINE));
+
+        }
+
+        public void UserUI(string userID = "", string userName = "", string userPhonenumber = "", string userAddress = "", string numberOfBooksBoorow = "")
+        {
+
+            Console.WriteLine();
+
+            if (userID!="" || userName != "" || userPhonenumber != "" || userAddress != "" || numberOfBooksBoorow != "")
+
+                UserUI(PrintOfLine(userID, Constants.USERID_LENGTH_OF_LINE),
+                       PrintOfLine(userName, Constants.USERNAME_LENGTH_OF_LINE),
+                       PrintOfLine(userPhonenumber, Constants.PHONENUMBER_LENGTH_OF_LINE),
+                       PrintOfLine(userAddress, Constants.ADDRESS_LENGTH_OF_LINE),
+                       PrintOfLine(numberOfBooksBoorow, Constants.NUMBEROFBOOKS_OF_LINE));
 
         }
 
@@ -118,19 +132,17 @@ namespace Study._03_Library__최사원
 
         }
 
-
-
-
-        public void Alert(string warning, string warning2 = "", string warning3 = "")
+        public void Alert(string warning, string warning2 = "", string warning3 = "") // 사용자 알림 ui. 최대 3줄의 안내를 제공한다.
         {
             Console.Clear();
+            Console.SetWindowSize(73, 14);
             string text = System.IO.File.ReadAllText(@"txt\Alert.txt", Encoding.Default); 
             Console.WriteLine("{0}", text);
             Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME);
             Console.Write(warning);
             if (warning2 != "")
             {
-                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 1);
+                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 2);
                 Console.Write(warning2);
 
             }
@@ -139,12 +151,15 @@ namespace Study._03_Library__최사원
             if (warning3 != "")
             {
 
-                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 2);
+                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 4);
                 Console.Write(warning3);
 
             }
 
         }
+
+
+        /* 저장해 놓은 UI 배경 불러오기 + 출력*/
 
         public void IntroUI()
         {
@@ -186,7 +201,15 @@ namespace Study._03_Library__최사원
             Console.Write("{0}", text);
         }
 
-        public void SignInUI()
+        public void UserSettingUI()
+        {
+            Console.Clear();
+            Console.SetWindowSize(32, 35);
+            string text = System.IO.File.ReadAllText(@"txt\UserSetting.txt", Encoding.Default);
+            Console.Write("{0}", text);
+        }
+
+        public void GetDataUI() 
         {
             Console.Clear();
             Console.SetWindowSize(73, 17);
@@ -194,9 +217,11 @@ namespace Study._03_Library__최사원
             Console.Write("{0}", text);
         }
 
-        public void SignInUIWithGuide(string warningForGuide, string inputGuide)
+
+        /* 가이드 까지 출력해 줄 GETDATA UI함수*/
+        public void GetDataUIWithGuide(string warningForGuide, string inputGuide)
         {
-            SignInUI();
+            GetDataUI();
                 Console.SetCursorPosition(0, Constants.SIGNIN_FRAME_Y+3);
                 Console.Write(warningForGuide);
                 Console.SetCursorPosition(Constants.SIGNIN_FRAME_X, Constants.SIGNIN_FRAME_Y);

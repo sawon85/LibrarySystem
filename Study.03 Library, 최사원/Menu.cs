@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Study._03_Library__최사원
 {
@@ -22,30 +23,29 @@ namespace Study._03_Library__최사원
 
         /*--- Login ---*/
 
- 
-        public void SignIn()
+        public void SetID(out string id)   //유저 회원가입을 위해 아이디를 입력받는 함수 
         {
-            
-
-            string id, password, name, phonenumber, address;
-        
             while (true)
             {
-                ui.SignInUIWithGuide("아이디는 영어 (숫자 포함 가능) 4 ~ 10글자, 한글,공백,특수문자는 불가. ",
+                ui.GetDataUIWithGuide("아이디는 영어 (숫자 포함 가능) 4 ~ 10글자, 한글,공백,특수문자는 불가, \n " +
+                    "다른 유저와 중복되는 아이디도 사용이 불가합니다.",
                     "사용할 아이디를 입력하세요 : "
                     );
-          
+
                 id = Console.ReadLine();
-                if (librarySystem.IsAlreadyUsedID(id))
+                if (librarySystem.IsAlreadyUsedID(id))  //사용하고 있는 아이디면 다시 입력받기
                     continue;
                 else if (exception.ID(id))
                     break;
 
             }
+        }
 
+        public void SetPassword(out string password)  //유저 회원가입을 위해 비밀번호를 입력받는 함수
+        {
             while (true)
             {
-                ui.SignInUIWithGuide("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글, 공백 불가. ",
+                ui.GetDataUIWithGuide("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글, 공백 불가. ",
                     "사용할 비밀번호를 입력하세요 : "
                     );
 
@@ -55,9 +55,10 @@ namespace Study._03_Library__최사원
 
             }
 
-            while (true)
+
+            while (true)                    //한 번 더 입력 받아서 확인받아야 함.
             {
-                ui.SignInUIWithGuide("",
+                ui.GetDataUIWithGuide("",
                     "비밀번호를 다시 입력하세요 :  "
                     );
 
@@ -65,13 +66,15 @@ namespace Study._03_Library__최사원
 
                 if (password == password2)
                     break;
-               
+
             }
+        }
 
-
+        public void SetName(out string name)  //회원가입 이름을 입력받는 함수
+        {
             while (true)
             {
-                ui.SignInUIWithGuide("이름은 한글 2~5 글자. 영어, 공백, 특수문자는 불가. ",
+                ui.GetDataUIWithGuide("이름은 한글 2~5 글자. 영어, 공백, 특수문자는 불가. ",
                     "이름을 입력하세요 : "
                     );
                 name = Console.ReadLine();
@@ -79,20 +82,26 @@ namespace Study._03_Library__최사원
                     break;
             }
 
+        }
+
+        public void SetPhonenumber(out string phonenumber) //핸드폰 번호를 입력받는 함수
+        {
             while (true)
             {
-                ui.SignInUIWithGuide("휴대폰 번호는 01000000000형식으로 입력하세요. ",
+                ui.GetDataUIWithGuide("휴대폰 번호는 01000000000형식으로 입력하세요. ",
                        "휴대폰 번호 입력 : "
                        );
                 phonenumber = Console.ReadLine();
                 if (exception.Phonenumber(phonenumber))
                     break;
             }
+        }
 
-  
+        public void SetAddress(out string address) //회원가입 주소를 입력받는 함수
+        {
             while (true)
             {
-                ui.SignInUIWithGuide("주소를 입력하세요. 영어 입력 불가",
+                ui.GetDataUIWithGuide("주소를 입력하세요 (숫자 필수 포함). 영어 입력 불가",
                        "주소 입력 : "
                        );
                 Console.WriteLine();
@@ -100,13 +109,33 @@ namespace Study._03_Library__최사원
                 if (exception.Address(address))
                     break;
             }
+        }
 
-            librarySystem.SignIn(id, password, name, address, phonenumber);
+        public void SignIn()
+        {
+
+            string id, password, name, phonenumber, address;
+
+            SetID(out id);
+
+            SetPassword(out password);
+
+            SetName(out name);
+
+            SetPhonenumber(out phonenumber);
+
+            SetAddress(out address);
+
+            librarySystem.SignIn(id, password, name, address, phonenumber);  //저장
+
+            ui.Alert("회원가입이 완료 되었습니다.", "waiting....");  //회원가입이 되었다는 표시 0.5초 
+            Thread.Sleep(500);
+
         }
 
         public void IntroMenu()
         {
-            
+
             while (true)
             {
 
@@ -117,10 +146,10 @@ namespace Study._03_Library__최사원
                         if (Login())
                             UserMenu();
                         else
-                        ui.Alert("로그인에 실패하셨습니다,.");
-                        Console.Read();
+                            ui.Alert("로그인에 실패하셨습니다,.");  //로그인 실패 시에 완료
+                        Console.Read();  //엔터 누르면 삭제
                         break;
-                        
+
 
                     case Constants.SIGNIN:
                         SignIn();
@@ -134,45 +163,30 @@ namespace Study._03_Library__최사원
         {
             ui.LoginUI();
 
-            Console.Write("아이디를 입력하세요:");
+            Console.SetCursorPosition(26,9);   //아이디 입력받는 위치
             string inputID = Console.ReadLine();
-            Console.Write("비밀번호를 입력하세요:");
+            Console.SetCursorPosition(29,11);    //비밀번호 입력받는 위치
             string inputPassword = Console.ReadLine();
 
-            return librarySystem.Login(inputID, inputPassword);
+            return librarySystem.Login(inputID, inputPassword); //로그인이 가능한지 데이터를 비교해서 library함수에서 BOOL형을 반환
         }
 
         /*---USER---*/
-        private void ShowUsers(List<UserVO> userList)
-        {
-            UserVO user;
 
-            for(int index=1; index<userList.Count;index++)
-            {
-                user = userList[index];
-                Console.WriteLine( index + ".   " + user.ID + user.Phonenumber + user.Address);
-
-            }
-
-            int button = int.Parse(Console.ReadLine());
-
-            WhatBookBorrowed(userList[button]);
-        }
-
-        private void WhatBookBorrowed(UserVO user)
+        private void WhatBookBorrowed(UserVO user)       // 주석 다는 중..... 이 함수는 왜 있지?
         {
 
-            for(int i=0; i<user.BorrowingBooks.Count;i++)
+            for (int i = 0; i < user.BorrowingBooks.Count; i++)
             {
                 Console.WriteLine("빌린 책 : " + user.BorrowingBooks[i].book.BookName);
                 Console.WriteLine("반납 날짜" + string.Format("{0:yyyy년 MM월 dd일}", user.BorrowingBooks[i].returnDate));
             }
-  
+
         }
 
         /*---BOOK---*/
 
-        private void ShowBooks(List<BookVO> bookList, int who)
+        private void ShowBooks(List<BookVO> bookList, int who)  // 책을 출력하는 함수
         {
 
             while (true)
@@ -181,7 +195,7 @@ namespace Study._03_Library__최사원
                 Console.SetWindowSize(137, 48);
 
                 BookVO book;
-                ui.BookUI("", ui.Half2Full("책 이름"), ui.Half2Full("출판사"), ui.Half2Full("작가"), ui.Half2Full("남은 책"));
+                ui.BookUI("", ui.Half2Full("책 이름"), ui.Half2Full("출판사"), ui.Half2Full("작가"), ui.Half2Full("남은 책"));  //맨 위에 출력할 정보 출력
                 Console.WriteLine();
 
 
@@ -189,14 +203,17 @@ namespace Study._03_Library__최사원
                 {
                     book = bookList[index];
 
+                    //책 데이터에서 모든 책을 하나 하나 출력
+
                     ui.BookUI(ui.Half2Full((index + 1).ToString()), ui.Half2Full(book.BookName), ui.Half2Full(book.Publisher), ui.Half2Full(book.Writer), ui.Half2Full(book.NumberOfBook.ToString()));
                     // Console.WriteLine(index + 1 + ".   " + book.BookName + book.NumberOfBook + book.Publisher + book.Writer);
 
                 }
 
-                if(who==Constants.USER)
-                     Console.Write(" \n\n   대출이나 반납을 원하시는 책 번호를 입력하세요 (q버튼 : 뒤로가기) : ");
-                else
+                if (who == Constants.USER)  //유저모드라면 
+                    Console.Write(" \n\n   대출이나 반납을 원하시는 책 번호를 입력하세요 (q버튼 : 뒤로가기) : ");
+
+                else  //관리자 모드라면
                     Console.Write(" \n\n   수량 수정이나 책 삭제를 원하는 책 번호를 입력하세요. (q버튼 : 뒤로가기) : ");
 
                 string input = Console.ReadLine();
@@ -208,7 +225,7 @@ namespace Study._03_Library__최사원
 
                     if (index >= 0 && index < bookList.Count)
                     {
-                        BookMenu(bookList[index], who);
+                        BookMenu(bookList[index], who);  //입력받는 값이 책 번호 범위내에 있으면 북 메뉴로 넘어간다.
                         return;
                     }
 
@@ -222,20 +239,20 @@ namespace Study._03_Library__최사원
 
         void BookMenu(BookVO book, int who)
         {
-            if(who == Constants.USER)
+            if (who == Constants.USER)  // 유저 모드 북메뉴로 진입
                 User_BookMenu(book);
-            else if(who==Constants.ADMINISTRATOR)
-             Administrator_BookMenu(book);
+            else if (who == Constants.ADMINISTRATOR) //관리자용 북 메뉴로 진입.
+                Administrator_BookMenu(book);
 
         }
 
-        private bool? GetYesOrNo()
+        private bool? GetYesOrNo()  //yse가 눌렸는지 no가 눌렸는 지 확인
         {
 
             string yerOrNo = Console.ReadLine();
 
-            
-            switch(yerOrNo)
+
+            switch (yerOrNo)
             {
 
                 case "Y":
@@ -247,26 +264,26 @@ namespace Study._03_Library__최사원
                     return false;
 
                 default:
-                    return null;
+                    return null;  //입력을 하나라도 받고 그 입력이 y나 n이 아니면 그 입력을 지우기 위해 null값으로 판단을 해준다.
 
             }
         }
 
-        private bool DoesReturn(BookVO book, DateTime? returnTime)
+        private bool DoesReturn(BookVO book, DateTime? returnTime)  
         {
             while (true)
             {
                 ui.Alert("반납하기",
                    string.Format("{0:yyyy년 MM월 dd일}", returnTime) + "까지 반납하셔야 됩니다.",
                    "반납하시겠습니까 (Y/N)?"
-                   );
+                   );   //반납 팝업 출력
 
                 switch (GetYesOrNo())
                 {
 
                     case true: return true;
                     case false: return false;
-                    case null: break;
+                    case null: break; //null이면 다시 화면 재조정
 
                 }
             }
@@ -279,7 +296,7 @@ namespace Study._03_Library__최사원
                 ui.Alert("대출하기",
                   "",
                    "대출하시겠습니까 (Y/N)?"
-                   );
+                   );  //대출 팝업 출력
 
                 switch (GetYesOrNo())
                 {
@@ -294,36 +311,36 @@ namespace Study._03_Library__최사원
 
         private void User_BookMenu(BookVO book)
         {
-            DateTime? returnTime = librarySystem.IsBookBorrowed(book);
+            DateTime? returnTime = librarySystem.IsBookBorrowed(book);  //유저가 책을 빌렸었나요?
 
 
-            if (returnTime!= null)
+            if (returnTime != null)  // 반납날짜가 초기화 되었다. -> 빌린 상태이다.
             {
-                if (DoesReturn(book, returnTime))
+                if (DoesReturn(book, returnTime))  // 반납할거야?
                 {
-                    librarySystem.ReturnBook(book);
+                    librarySystem.ReturnBook(book);  //반납~
 
                 }
-      
+
             }
 
-            else if (librarySystem.CanBorrowMore(book))
+            else if (librarySystem.CanBorrowMore(book))    //한 사람이 대여할 수 있는 책 최대 2권 (관리자는 3권) 모두 사용했는가?, 재고가 있는 가?
             {
-                if (DoesBorrow(book))
+                if (DoesBorrow(book))  //대여가능, 대여할거야?
                 {
-                    ui.Alert(book.BookName,"반납 날짜는 " + DateTime.Now.AddDays(14).ToLongDateString() + "입니다");
-                    librarySystem.BorrowBook(book);
- 
+                    ui.Alert(book.BookName, "반납 날짜는 " + DateTime.Now.AddDays(14).ToLongDateString() + "입니다"); // 대여날짜 팝업
+                    librarySystem.BorrowBook(book); // 책을 빌렸다는 데이터 초기화
+
                 }
             }
 
-            else if(!librarySystem.DoesUserCanBorrow())
+            else if (!librarySystem.DoesUserCanBorrow())  // 사용자가 대여할 수 있는 여유가 있음
             {
                 ui.Alert("대여 가능한 권 수를 보두 대여 하셨기 때문에 대여할 수 없습니다.");
                 Console.Read();
             }
 
-            else // 경우의 수는 책이 하나도 남지 않았을 때 뿐이다.
+            else // 마지막 경우의 수는 책이 하나도 남지 않았을 때 뿐이다.
             {
                 ui.Alert("현재 남은 재고가 없기 때문에 대여하실 수 없습니다.");
                 Console.Read();
@@ -332,31 +349,31 @@ namespace Study._03_Library__최사원
             return;
         }
 
-        private void SearchingBook(List<BookVO> bookData,int who)
+        private void SearchingBook(List<BookVO> bookData, int who) // 책 검색하기
         {
-            List<BookVO> bookIsSearched = new List<BookVO>();
-            
+            List<BookVO> bookIsSearched = new List<BookVO>();  //와일문 밖으로 빼서 선언 후 생성.
+
             while (true)
             {
-                ui.SearchingBookUI();
-                bookIsSearched.Clear();
+                ui.SearchingBookUI();  //출력 초기화
+                bookIsSearched.Clear(); // 리스트 초기화
 
-                string check = Console.ReadLine();
+                string check = Console.ReadLine(); //검색할 단어
 
-                if (check == "q")
+                if (check == "q") //q -> 함수 종료
                     return;
 
-                foreach (BookVO book in bookData)
+                foreach (BookVO book in bookData)  
                 {
-                    if (exception.Search(check, book.BookName))
-                        bookIsSearched.Add(book);
+                    if (exception.Search(check, book.BookName)) // 검색할 단어 모든 책 제목에서 검색 -> 정규식 사용
+                        bookIsSearched.Add(book);   // 책 제목에 포함이 되면 리스트에 추가
                 }
 
-                ShowBooks(bookIsSearched, who);
+                ShowBooks(bookIsSearched, who); // 이 리스트를 이용해 Showbook을 재 사용.
             }
         }
 
-        private void Administrator_BookMenu(BookVO book)
+        private void Administrator_BookMenu(BookVO book) // 관리자 bookmenu
         {
 
             while (true)
@@ -364,76 +381,83 @@ namespace Study._03_Library__최사원
 
                 ui.BookMenuUI();
 
-                switch (exception.Button())
+                switch (exception.Button()) 
                 {
-                    case Constants.UPDATE_BOOK_COUNT:
+                    case Constants.UPDATE_BOOK_COUNT: //책 권 수 초기화
                         {
                             UpdateNumberOfBook(book);
                             return;
                         }
 
-                    case Constants.DELETE_BOOK:
+                    case Constants.DELETE_BOOK:  //책 삭제
                         {
-                            if (book.NumberOfLoans > 0)
+                            if (book.NumberOfLoans > 0)  // 누군가 빌려갔다면 삭제 불가
                             {
-                                Console.WriteLine("대여중인 책이 있습니다. 반납이 모두 완료된 후 삭제해 주십시오.");
+                                ui.Alert("대여중인 책이 있습니다. 반납이 모두 완료된 후 삭제해 주십시오.",warning3:"<<Enter>>"); //팝업
+                                Console.Read();
                                 return;
                             }
 
                             librarySystem.DeleteBook(book);
-                            ui.Alert("성공적으로 삭제 되었습니다.");
+                            ui.Alert("성공적으로 삭제 되었습니다.", warning3: "<<Enter>>"); //삭제
                             Console.Read();
                             return;
                         }
 
-                    case Constants.BACK:
+                    case Constants.ADMINISTRATOR_BACK: //함수 종료
                         return;
 
-                    case null: continue;
+                    case null: continue; //제대로된 입력값이 아니면 다시 출력 초기화
                 }
             }
+        }
+
+        private void GetBookData(out string bookData, string Guide)  //책 데이터 입력 받기 책 데이터 예외는 그렇게 까다롭지 않기 때문에
+        {
+            while (true)
+            {
+                ui.GetDataUIWithGuide("특수문자와 숫자로만 되어 있는 이름은 불가능합니다.", Guide);
+
+                bookData = Console.ReadLine();
+
+                if (exception.BookData(bookData))
+                    return;
+
+            }
+
         }
 
         private void NewBook()
         {
             Console.Clear();
 
-            string name, publisher, writer, numberOfBooks;
+            string name, publisher, writer;
+            int numberOfBooks;
 
-            Console.WriteLine("책 제목을 입력해 주세요 :");
+            GetBookData(out name, "책 이름을 입력하세요 : ");
 
-            while (true)
-            {
-                name = Console.ReadLine();
-                if (!exception.BlankCheck(name))
-                    break;
-            }
+            GetBookData(out publisher, "출판사를 입력하세요 : ");
+
+            GetBookData(out writer, "작가를 입력하세요 : ");
 
             while (true)
             {
-                publisher = Console.ReadLine();
-                if (!exception.BlankCheck(name))
+                ui.GetDataUIWithGuide("숫자만 입력 가능합니다.", "책 수량을 입력하세요 : ");
+
+                int? button = exception.Button();
+
+                if (button != null)
+                {
+                    numberOfBooks = int.Parse(button.ToString());
                     break;
+                }
             }
 
-            while (true)
-            {
-                writer = Console.ReadLine();
-                if (!exception.BlankCheck(writer))
-                    break;
-            }
-            while (true)
-            {
-                numberOfBooks = Console.ReadLine();
-                if (exception.OnlyNumberCheck(numberOfBooks))
-                    break;
-            }
-
-            librarySystem.NewBook(name, publisher, writer, int.Parse(numberOfBooks));
+            librarySystem.NewBook(name, publisher, writer, numberOfBooks);  // 책 데이터 추가
 
         }
 
-        private void UpdateNumberOfBook(BookVO book)
+        private void UpdateNumberOfBook(BookVO book)  //책 수량 업데이트
         {
 
             int numberOfBooks;
@@ -441,7 +465,7 @@ namespace Study._03_Library__최사원
 
             while (true)
             {
-                ui.Alert("책 개수를 수정합니다.", "현재 전체" + (book.NumberOfBook + book.NumberOfLoans) + "권 있습니다.", "입력 : ");
+                ui.Alert("책 개수를 수정합니다.", "현재 전체" + (book.NumberOfBook + book.NumberOfLoans) + "권 있습니다.", "입력 : "); //빌려간 권 수까지 팝업 출력
 
                 button = exception.Button();
 
@@ -449,24 +473,24 @@ namespace Study._03_Library__최사원
 
                 numberOfBooks = int.Parse(button.ToString());
 
-                if (numberOfBooks >= book.NumberOfLoans)
+                if (numberOfBooks >= book.NumberOfLoans) // 대여해준 권 수 보다 크거나 같으면 성공.
                     break;
 
-                ui.Alert("빌려간 책이" + book.NumberOfLoans + "개 있습니다. 이 보다 크게 적어주세요");
+                ui.Alert("빌려간 책이" + book.NumberOfLoans + "개 있습니다. 이 보다 크게 적어주세요",warning3:"<<Enter>>"); // 아니라면 이보다 크게 적도록.
                 Console.Read();
             }
 
-            librarySystem.UpdateNumberOfBook(book, numberOfBooks);
+            librarySystem.UpdateNumberOfBook(book, numberOfBooks); //책 수량 업데이트
 
         }
 
-        private void MyBook()
+        private void MyBook() //내가 빌린 책 
         {
-            Console.Clear();
+            Console.Clear(); 
 
-            if(librarySystem.MyBook().Count==0)
+            if (librarySystem.MyBook().Count == 0) //빌린 책이 없으면
             {
-                ui.Alert("현재 빌린 책이 없습니다.");
+                ui.Alert("현재 빌린 책이 없습니다."); 
                 Console.Read();
                 return;
             }
@@ -476,21 +500,21 @@ namespace Study._03_Library__최사원
 
             int index = 1;
 
-            foreach(borrowingBook myBookData in  librarySystem.MyBook())
+            foreach (borrowingBook myBookData in librarySystem.MyBook())  //모든 책 데이터 출력 -> 책 목록과는 다르게 반납날짜를 출력해준다,
             {
                 Console.Write(myBookData.book.BookName + " : ");
-              
+
                 ui.MyBookUI(ui.Half2Full(index.ToString()), ui.Half2Full(myBookData.book.BookName), ui.Half2Full(string.Format("{0:yyyy년 MM월 dd일}", myBookData.returnDate) + "까지 반납하셔야 됩니다."));
                 Console.WriteLine();
                 index++;
             }
 
-            Console.Write(" \n\n  반납을 원하시는 책 번호를 입력하세요 (q버튼 : 뒤로가기) : ");
+            Console.Write(" \n\n  반납을 원하시는 책 번호를 입력하세요 (q버튼 : 뒤로가기) : "); //바로 반납할 수 있도록
 
             string input = Console.ReadLine();
 
             index = 0;
-            
+
             if (exception.OnlyNumberCheck(input))
             {
 
@@ -508,11 +532,11 @@ namespace Study._03_Library__최사원
             else if (input == "q")
                 return;
         }
-    
+
 
         /*--------------------------USER--------------------------*/
 
-        private void UserMenu()
+        private void UserMenu()  //사용자 메뉴
         {
             while (true)
             {
@@ -521,34 +545,35 @@ namespace Study._03_Library__최사원
                 switch (exception.Button())
                 {
                     case Constants.BOOKS:
-                        ShowBooks(librarySystem.BookData,Constants.USER);
+                        ShowBooks(librarySystem.BookData, Constants.USER);
                         break;
 
                     case Constants.SEARCHING_BOOK:
-                        SearchingBook(librarySystem.BookData,Constants.USER);
+                        SearchingBook(librarySystem.BookData, Constants.USER);
                         break;
 
-                    case Constants.MYBOOKS :
+                    case Constants.MYBOOKS: //내가 빌린 책
                         MyBook();
                         break;
 
-                    case Constants.USER_SETTING:
+                    case Constants.USER_SETTING: //내 데이터 수정
+                        UserSettingMenu();
                         break;
 
-                    case Constants.ADMINISTRATOR_MODE:
+                    case Constants.ADMINISTRATOR_MODE: //관리자 모드
                         if (librarySystem.IntoAdministratorMode())
                             AdministratorMenu();
                         break;
 
-                    case Constants.LOGOUT:
+                    case Constants.LOGOUT: //로그아웃
                         {
                             librarySystem.Logout();
                             return;
                         }
 
-                    case Constants.WITHDRAWAL:
+                    case Constants.WITHDRAWAL:  //회원탈퇴
                         {
-                            if (librarySystem.Withdrawal())
+                            if (librarySystem.Withdrawal())  // 관리자는 회원 탈퇴 불가
                                 return;
 
                             else
@@ -558,14 +583,61 @@ namespace Study._03_Library__최사원
                     case null: continue;
 
                 }
-                
+
+            }
+        }
+
+        private void UserSettingMenu()  //유저 세팅 메뉴
+        {
+            while (true)
+            {
+                ui.UserSettingUI();
+
+                switch (exception.Button())
+                {
+                    case Constants.CHANGE_PASSWORD:  //비밀번호 변경
+                        {
+                            string password;
+                            SetPassword(out password);                               // 회원가입 함수 사용
+                            librarySystem.UserSetting(password: password);  
+                            break;
+                        }
+
+                    case Constants.CHANGE_PHONENUMBER:  //핸드폰 번호 변경
+                        {
+                            string phonenumber;
+                            SetPhonenumber(out phonenumber);
+                            librarySystem.UserSetting(phonenumber: phonenumber);
+                            break;
+                        }
+
+                    case Constants.CHANGE_ADDRESS: //주소 변경
+                        {
+                            string address;
+                            SetAddress(out address);
+                            librarySystem.UserSetting(address: address);
+                            break;
+                        }
+
+                    case Constants.PRINT_MY_DATA:  // 내 정보 출력
+                        {
+                            librarySystem.PrintMyData();
+                            break;
+                        }
+
+                    case Constants.USER_SETTING_BACK: // 뒤로 돌아가기
+                        return;
+
+                    case null: continue;
+
+                }
+
             }
         }
 
         /*--Administrator---*/
 
-        private void AdministratorMenu()
-
+        private void AdministratorMenu()  //관리자 메뉴
         {
             while (true)
             {
@@ -582,6 +654,7 @@ namespace Study._03_Library__최사원
                         break;
 
                     case Constants.ALL_OF_USERS:
+                        ShowUsers(librarySystem.UserData);
                         break;
 
                     case Constants.USER_MODE:
@@ -592,6 +665,28 @@ namespace Study._03_Library__최사원
 
                 }
             }
-        }   
+        }
+
+        private void ShowUsers(List<UserVO> userList)  //유저 출력
+        {
+            
+                Console.Clear();
+                Console.SetWindowSize(137, 48);
+
+
+                ui.UserUI(ui.Half2Full("유저 아이디"), ui.Half2Full("이름"), ui.Half2Full("핸드폰 번호"), ui.Half2Full("주소"), ui.Half2Full("대출 수"));
+                Console.WriteLine();
+
+
+                foreach (UserVO user in userList)
+                {
+                    ui.UserUI(ui.Half2Full(user.ID), ui.Half2Full(user.Name), ui.Half2Full(user.Phonenumber), ui.Half2Full(user.Address), ui.Half2Full(user.BorrowingBooks.Count().ToString()));
+
+                }
+
+            Console.Read();
+            return;
+
+        }
     }
-}
+   }

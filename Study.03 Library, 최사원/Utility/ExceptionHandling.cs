@@ -183,6 +183,20 @@ namespace Study._03_Library__최사원
                 return false;
         }
 
+        /*---책 데이터 정규식---*/
+
+        public bool BookData(string bookData)
+        {
+            if (BlankCheck(bookData))
+                return false;
+
+            else if (!EnglishCheck(bookData) && !KoreanCheck(bookData))
+                return false;
+
+            else
+                return true;
+        }
+
         /*---특정 문자 검색---*/
 
         public bool Search(string check, string sentence)
