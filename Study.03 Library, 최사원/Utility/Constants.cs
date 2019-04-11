@@ -68,6 +68,9 @@ namespace Study._03_Library__최사원
         public const int LOGIN_FRAME_X = 5;
         public const int LOGIN_FRAME_Y = 1;
 
+        public const int SIGNIN_FRAME_X = 6;
+        public const int SIGNIN_FRAME_Y = 7;
+
         public const int SEARCHING_BOOK_INPUT_X = 3;
         public const int SEARCHING_BOOK_INPUT_Y = 7;
 

@@ -13,6 +13,7 @@ namespace Study._03_Library__최사원
         List<BookVO> bookData;
         List<UserVO> userData;
         UserVO loginUser;
+        UI ui;
         int userCount = 0;
         int bookCount = 0;
 
@@ -22,6 +23,7 @@ namespace Study._03_Library__최사원
             bookData = new List<BookVO>();
             userData = new List<UserVO>();
             loginUser = null;
+            UI ui = new UI();
 
             SaveAdministratorData();
             SavePeopleData();
@@ -73,6 +75,16 @@ namespace Study._03_Library__최사원
 
         /*---User--*/
 
+        public bool IsAlreadyUsedID (string inputID)
+        {
+            foreach (UserVO user in userData)
+            {
+                if (user.ID == inputID)
+                    return true;
+            }
+
+            return false;
+        }
         public void SignIn(string id, string password, string name, string address, string phonenumber)
         {
 
@@ -97,6 +109,7 @@ namespace Study._03_Library__최사원
             return false;
         }
 
+  
         public bool Login(string inputID, string inputPassword)
         {
 
@@ -119,12 +132,14 @@ namespace Study._03_Library__최사원
         {
             if (loginUser.Code == Constants.ADMINISTRATOR)
             {
-                Console.WriteLine("관리자는 탈퇴하실 수 없습니다.");
+                ui.Alert("관리자는 탈퇴하실 수 없습니다.");
+                Console.Read();
                 return false;
             }
             if (loginUser.BorrowingBooks.Count > 0)
             {
-                Console.WriteLine("책을 모두 반납하신 후에 이용하세요.");
+                ui.Alert("책을 모두 반납하신 후에 이용하세요.");
+                Console.Read();
                 return false;
             }
 

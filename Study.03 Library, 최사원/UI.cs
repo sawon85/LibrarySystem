@@ -186,6 +186,23 @@ namespace Study._03_Library__최사원
             Console.Write("{0}", text);
         }
 
+        public void SignInUI()
+        {
+            Console.Clear();
+            Console.SetWindowSize(73, 17);
+            string text = System.IO.File.ReadAllText(@"txt\SingInUI.txt", Encoding.Default);
+            Console.Write("{0}", text);
+        }
 
-    }
+        public void SignInUIWithGuide(string warningForGuide, string inputGuide)
+        {
+            SignInUI();
+                Console.SetCursorPosition(0, Constants.SIGNIN_FRAME_Y+3);
+                Console.Write(warningForGuide);
+                Console.SetCursorPosition(Constants.SIGNIN_FRAME_X, Constants.SIGNIN_FRAME_Y);
+                Console.Write(inputGuide);
+            
+        }
+
+}
 } 

@@ -25,45 +25,77 @@ namespace Study._03_Library__최사원
  
         public void SignIn()
         {
+            
+
             string id, password, name, phonenumber, address;
         
-            Console.Write("아이디를 입력하세요:");
             while (true)
             {
+                ui.SignInUIWithGuide("아이디는 영어 (숫자 포함 가능) 4 ~ 10글자, 한글,공백,특수문자는 불가. ",
+                    "사용할 아이디를 입력하세요 : "
+                    );
+          
                 id = Console.ReadLine();
-                if (exception.ID(id))
+                if (librarySystem.IsAlreadyUsedID(id))
+                    continue;
+                else if (exception.ID(id))
                     break;
-                Console.Write("아이디는 영어 (숫자 포함 가능) 4 ~ 10글자, 한글,공백,특수문자는 불가능합니다. ");
+
             }
 
-            Console.Write("비밀번호를 입력하세요:");
             while (true)
             {
+                ui.SignInUIWithGuide("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글, 공백 불가. ",
+                    "사용할 비밀번호를 입력하세요 : "
+                    );
+
                 password = Console.ReadLine();
                 if (exception.Password(password))
                     break;
-                Console.Write("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글 공백 특수문자는 불가능합니다.");
+
             }
 
-            Console.Write("이름을 입력하세요:");
             while (true)
             {
+                ui.SignInUIWithGuide("",
+                    "비밀번호를 다시 입력하세요 :  "
+                    );
+
+                string password2 = Console.ReadLine();
+
+                if (password == password2)
+                    break;
+               
+            }
+
+
+            while (true)
+            {
+                ui.SignInUIWithGuide("이름은 한글 2~5 글자. 영어, 공백, 특수문자는 불가. ",
+                    "이름을 입력하세요 : "
+                    );
                 name = Console.ReadLine();
                 if (exception.KoreanName(name))
                     break;
             }
 
-            Console.Write("핸드폰 번호를 입력하세요:");
             while (true)
             {
+                ui.SignInUIWithGuide("휴대폰 번호는 01000000000형식으로 입력하세요. ",
+                       "휴대폰 번호 입력 : "
+                       );
                 phonenumber = Console.ReadLine();
                 if (exception.Phonenumber(phonenumber))
                     break;
             }
 
-            Console.Write("주소를 입력하세요:");
+  
             while (true)
             {
+                ui.SignInUIWithGuide("주소를 입력하세요. 영어 입력 불가",
+                       "주소 입력 : "
+                       );
+                Console.WriteLine();
                 address = Console.ReadLine();
                 if (exception.Address(address))
                     break;
@@ -560,9 +592,6 @@ namespace Study._03_Library__최사원
 
                 }
             }
-        }
-
-              
-        
+        }   
     }
 }
