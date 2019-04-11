@@ -187,10 +187,16 @@ namespace Study._03_Library__최사원
 
         public bool BookData(string bookData)
         {
+
+            Regex koreanCheck1 = new Regex("(?=.*[가-힣]).{1}");
+
+            Match match1 = koreanCheck1.Match(bookData);
+     
+
             if (BlankCheck(bookData))
                 return false;
 
-            else if (!EnglishCheck(bookData) && !KoreanCheck(bookData))
+            else if (!EnglishCheck(bookData) && !match1.Success)
                 return false;
 
             else

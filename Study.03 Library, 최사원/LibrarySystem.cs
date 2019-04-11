@@ -223,7 +223,7 @@ namespace Study._03_Library__최사원
 
             Console.WriteLine(" 이름 : {0} \n",loginUser.Name);
 
-            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Password);
+            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Phonenumber);
 
             Console.WriteLine(" 주소 : \n  {0} \n \n \n ", loginUser.Address);
 

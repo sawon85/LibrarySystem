@@ -414,8 +414,12 @@ namespace Study._03_Library__최사원
 
         private void GetBookData(out string bookData, string Guide)  //책 데이터 입력 받기 책 데이터 예외는 그렇게 까다롭지 않기 때문에
         {
+            
             while (true)
             {
+
+                bookData = "";
+
                 ui.GetDataUIWithGuide("특수문자와 숫자로만 되어 있는 이름은 불가능합니다.", Guide);
 
                 bookData = Console.ReadLine();
@@ -487,6 +491,7 @@ namespace Study._03_Library__최사원
         private void MyBook() //내가 빌린 책 
         {
             Console.Clear(); 
+            
 
             if (librarySystem.MyBook().Count == 0) //빌린 책이 없으면
             {
@@ -496,6 +501,7 @@ namespace Study._03_Library__최사원
             }
 
 
+            Console.SetWindowSize(145,14);
             Console.WriteLine("\n < < < 현재 내가 빌린 책 > > > \n\n");
 
             int index = 1;
