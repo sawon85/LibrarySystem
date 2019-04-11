@@ -23,7 +23,7 @@ namespace Study._03_Library__최사원
             bookData = new List<BookVO>();
             userData = new List<UserVO>();
             loginUser = null;
-            UI ui = new UI();
+            ui = new UI();
 
             SaveAdministratorData();
             SavePeopleData();
@@ -136,13 +136,13 @@ namespace Study._03_Library__최사원
         {
             if (loginUser.Code == Constants.ADMINISTRATOR)
             {
-                ui.Alert("관리자는 탈퇴하실 수 없습니다.",warning3: "<<ENTER>>");  //팝업
+                ui.Alert("관리자는 탈퇴하실 수 없습니다.","","<<ENTER>>");  //팝업
                 Console.Read();
                 return false;
             }
             if (loginUser.BorrowingBooks.Count > 0)
             {
-                ui.Alert("책을 모두 반납하신 후에 이용하세요.", warning3: "<<ENTER>>");
+                ui.Alert("책을 모두 반납하신 후에 이용하세요.","","<<ENTER>>");
                 Console.Read();
                 return false;
             }
@@ -223,7 +223,7 @@ namespace Study._03_Library__최사원
 
             Console.WriteLine(" 이름 : {0} \n",loginUser.Name);
 
-            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Phonenumber);
+            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Password);
 
             Console.WriteLine(" 주소 : \n  {0} \n \n \n ", loginUser.Address);
 
