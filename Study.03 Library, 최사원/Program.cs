@@ -13,9 +13,7 @@ namespace Study._03_Library__최사원
         static void Main(string[] args)
         {
             SawonIntro sawon = new SawonIntro();
-           sawon.Intro();
-
-            
+            sawon.Intro();     
             Menu ui = new Menu();
             ui.IntroMenu();
             

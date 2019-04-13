@@ -164,15 +164,15 @@ namespace Study._03_Library__최사원
         public void IntroUI()
         {
             Console.Clear();
-            Console.SetWindowSize(42, 18);
-            string text = System.IO.File.ReadAllText(@"txt\Intro.txt", Encoding.Default);
+            Console.SetWindowSize(64, 27);
+            string text = System.IO.File.ReadAllText(@"txt\Intro2.txt", Encoding.Default);
             Console.Write("{0}", text);
         }
 
         public void LoginUI()
         {
             Console.Clear();
-            Console.SetWindowSize(79, 16);
+            Console.SetWindowSize(79, 23);
             string text = System.IO.File.ReadAllText(@"txt\Login.txt", Encoding.Default);
             Console.Write("{0}", text);
         }
@@ -180,7 +180,7 @@ namespace Study._03_Library__최사원
         public void UserMenuUI()
         {
             Console.Clear();
-            Console.SetWindowSize(34, 32);
+            Console.SetWindowSize(34, 37);
             string text = System.IO.File.ReadAllText(@"txt\UserMenu.txt", Encoding.Default);
             Console.Write("{0}", text);
         }

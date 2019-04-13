@@ -44,7 +44,7 @@ namespace Study._03_Library__최사원
         public const int CHANGE_PHONENUMBER = 2;
         public const int CHANGE_ADDRESS = 3;
         public const int PRINT_MY_DATA = 4;
-        public const int USER_SETTING_BACK = 0;
+        public const int USER_SETTING_BACK = 5;
 
         //Administrator menu
         public const int BOOK_SETTING= 1;
@@ -59,7 +59,7 @@ namespace Study._03_Library__최사원
         //Book menu _ ADMINISTRATOR
         public const int UPDATE_BOOK_COUNT = 1;
         public const int DELETE_BOOK = 2;
-        public const int ADMINISTRATOR_BACK = 0;
+        public const int ADMINISTRATOR_BACK = 3;
 
         public const string EXIT = "0";
 

@@ -9,7 +9,9 @@ namespace Study._03_Library__최사원
 {
     class SawonIntro
     {
-        public SawonIntro() { }
+        public SawonIntro() {
+            Console.CursorVisible = false;
+        }
         public void PrintWelcome()
         {
             string text = System.IO.File.ReadAllText(@"txt\Welcome.txt", Encoding.Default);
@@ -35,7 +37,6 @@ namespace Study._03_Library__최사원
             for(int i=0;i<19;i++)
             {
                 Console.SetWindowSize(63, 7+ i);
-                Console.Clear();
                 Console.SetCursorPosition(start_X, start_Y+i);
                 PrintWelcome();
                 Thread.Sleep(20); 

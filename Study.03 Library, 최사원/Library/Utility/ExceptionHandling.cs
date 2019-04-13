@@ -63,7 +63,7 @@ namespace Study._03_Library__최사원
 
         public bool SpecialCharacterCheck(string sentence)
         {
-            Regex specialCharacterCheck = new Regex(@"(?=.*[~.,`!@\#$%^&*\()\=+|\\/:;?""<>']).{1}");
+            Regex specialCharacterCheck = new Regex(@"(?=.*[-~.,`!@\#$%^&*\()\=+|\\/:;?""<>']).{1}");
 
             Match match = specialCharacterCheck.Match(sentence);
 
@@ -90,13 +90,12 @@ namespace Study._03_Library__최사원
 
         public bool StrangeKoreanCheck(string sentence)
         {
-            Regex koreanCheck1 = new Regex("(?=.*[가-힣]).{1}");
-            Regex koreanCheck2 = new Regex("(?=.*[ㄱ-ㅎ]).{1}");
 
-            Match match1 = koreanCheck1.Match(sentence);
-            Match match2 = koreanCheck2.Match(sentence);
+            Regex koreanCheck = new Regex("(?=.*[ㄱ-ㅎ]).{1}");
 
-            if (!match1.Success && match2.Success)
+            Match match = koreanCheck.Match(sentence);
+
+            if (match.Success)
                 return true;
 
             else
@@ -152,7 +151,7 @@ namespace Study._03_Library__최사원
 
         public bool Password(string password)  // 8~16 영어, 특수문자 숫자 필수 포함
         {
-            Regex passwordMatch1 = new Regex(@"((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~.,`!@\#$%^&*\()\=+|\\/:;?""<>']).{8,16})");
+            Regex passwordMatch1 = new Regex(@"((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~.,`!-@\#$%^&*\()\=+|\\/:;?""<>']).{8,16})");
 
 
             Match match1 = passwordMatch1.Match(password);
@@ -181,12 +180,12 @@ namespace Study._03_Library__최사원
         public bool Address(string address)
         {
             Regex addressMatch = new Regex(@"((?=.*[가-힣])(?=.*\s)(?=.*[0-9]).{8,16})");
-            Regex specialCharacterCheck = new Regex("(?=.*[!@#$%^&*_~]).{1}");
+            Regex specialCharacterCheck = new Regex(@"(?=.*[~.,`!@\#$%^&*\()\=+|\\/:;?""<>']).{1}");
 
             Match match = addressMatch.Match(address);
             Match match2 = specialCharacterCheck.Match(address);
 
-            if (match.Success && !EnglishCheck(address) && !match2.Success && !SpecialCharacterCheck(address))
+            if (match.Success && !EnglishCheck(address) && !match2.Success && !StrangeKoreanCheck(address))
                 return true;
 
             else
@@ -295,5 +294,6 @@ namespace Study._03_Library__최사원
             }
 
         }
+
     }
 }

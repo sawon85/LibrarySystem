@@ -15,7 +15,7 @@ namespace Study._03_Library__최사원
 
         public Menu()
         {
-            Console.CursorVisible = false;
+            Console.CursorVisible = true;
             librarySystem = new LibrarySystem();
             exception = new ExceptionHandling();
             ui = new UI();
@@ -248,11 +248,11 @@ namespace Study._03_Library__최사원
         {
             ui.LoginUI();
 
-            Console.SetCursorPosition(26,9);   //아이디 입력받는 위치
+            Console.SetCursorPosition(26,16);   //아이디 입력받는 위치
             string inputID = exception.InputString();
             if (inputID == null) return null;
 
-            Console.SetCursorPosition(29,11);    //비밀번호 입력받는 위치
+            Console.SetCursorPosition(29,18);    //비밀번호 입력받는 위치
             string inputPassword = exception.InputString();
             if (inputPassword == null) return null;
 
@@ -319,6 +319,7 @@ namespace Study._03_Library__최사원
         {
             if (who == Constants.USER)  // 유저 모드 북메뉴로 진입
                 User_BookMenu(book);
+
             else if (who == Constants.ADMINISTRATOR) //관리자용 북 메뉴로 진입.
                 Administrator_BookMenu(book);
 
@@ -492,18 +493,29 @@ namespace Study._03_Library__최사원
 
         private void GetBookData(out string bookData, string Guide)  //책 데이터 입력 받기 책 데이터 예외는 그렇게 까다롭지 않기 때문에
         {
+
             
             while (true)
             {
-
+           
                 bookData = "";
 
-                ui.DataUIWithGuide("특수문자와 숫자로만 되어 있는 이름은 불가능합니다.", Guide);
 
-                bookData = Console.ReadLine();
+                ui.DataUIWithGuide(Guide,
+                    guideForSpecicalCharacter: "특수문자만 사용 불가",
+                    guideForBlank: "공백만 사용 불가",
+                    guideForNumber: "숫자만 사용 불가"
+                    );
+
+                bookData = exception.InputString();
+
+                if (bookData == null)
+                    return;
 
                 if (exception.BookData(bookData))
                     return;
+
+                AlertOfCantUse();
 
             }
 
@@ -516,27 +528,44 @@ namespace Study._03_Library__최사원
             string name, publisher, writer;
             int numberOfBooks;
 
-            GetBookData(out name, "책 이름을 입력하세요 : ");
+            GetBookData(out name, "책 이름을 입력하세요");
+            if (name == null) return;
 
-            GetBookData(out publisher, "출판사를 입력하세요 : ");
+            GetBookData(out publisher, "출판사를 입력하세요");
+            if (publisher == null) return;
 
-            GetBookData(out writer, "작가를 입력하세요 : ");
+            GetBookData(out writer, "작가를 입력하세요");
+            if (publisher == null) return;
 
             while (true)
             {
-                ui.DataUIWithGuide("숫자만 입력 가능합니다.", "책 수량을 입력하세요 : ");
+                ui.DataUIWithGuide("책 수량을 입력하세요", guideForNumber : "숫자만 입력 가능합니다.");
 
-                int? button = exception.Button();
+                string number = exception.InputString();
 
-                if (button != null)
+                if (number == null)
+                    return;
+
+                if (!exception.OnlyNumberCheck(number))
+                    continue;
+
+                else if (int.Parse(number) < 0)
                 {
-                    numberOfBooks = int.Parse(button.ToString());
+                    ui.Alert("책 수량은 0 보다 크게 입력해 주세요.", "<<< E N T E R >>>");
+                    Console.Read();
+                }
+
+                else
+                {
+                    numberOfBooks = int.Parse(number);
                     break;
                 }
             }
 
             librarySystem.NewBook(name, publisher, writer, numberOfBooks);  // 책 데이터 추가
-
+            ui.Alert("책이 추가 되었습니다.\n\n 책 이름 :" + name + "\n 작가 : " + writer + "\n 출판사 : " + publisher
+                + "\n수량 : " + numberOfBooks ,warning3: "\n <<< E N T E R >>>");
+            Console.Read();
         }
 
         private void UpdateNumberOfBook(BookVO book)  //책 수량 업데이트
@@ -681,7 +710,9 @@ namespace Study._03_Library__최사원
                     case Constants.CHANGE_PASSWORD:  //비밀번호 변경
                         {
                             string password;
-                            SetPassword(out password);                               // 회원가입 함수 사용
+                            SetPassword(out password);                               // 회원가입 함수 
+                            if (password == null)
+                                return;
                             librarySystem.UserSetting(password: password);  
                             break;
                         }
@@ -690,6 +721,8 @@ namespace Study._03_Library__최사원
                         {
                             string phonenumber;
                             SetPhonenumber(out phonenumber);
+                            if (phonenumber == null)
+                                return;
                             librarySystem.UserSetting(phonenumber: phonenumber);
                             break;
                         }
@@ -698,6 +731,8 @@ namespace Study._03_Library__최사원
                         {
                             string address;
                             SetAddress(out address);
+                            if (address == null)
+                                return;
                             librarySystem.UserSetting(address: address);
                             break;
                         }
