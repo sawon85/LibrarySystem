@@ -158,7 +158,7 @@ namespace Study._03_Library__최사원
             Match match1 = passwordMatch1.Match(password);
 
 
-            if (match1.Success && EnglishCheck(password) && NumberCheck(password) && !SpaceCheck(password) && password.Length < 16)
+            if (match1.Success && EnglishCheck(password) && NumberCheck(password) && !SpaceCheck(password) && !KoreanCheck(password) && password.Length < 16)
                 return true;
 
             else
@@ -277,6 +277,8 @@ namespace Study._03_Library__최사원
                     Console.Write(" ");
                     if (sentence != "")
                     {
+                        if(KoreanCheck(sentence[sentence.Length-1].ToString()))
+                            Console.Write("\b");
                         Console.Write("\b");
                         sentence = sentence.Substring(0, sentence.Length - 1);
                     }
@@ -284,7 +286,12 @@ namespace Study._03_Library__최사원
                 }
 
                 else
-                    continue;
+                {
+                    Console.Write("\b");
+                    Console.Write(" ");
+                    Console.Write("\b");
+
+                }    
             }
 
         }

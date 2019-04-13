@@ -23,13 +23,24 @@ namespace Study._03_Library__최사원
 
         /*--- Login ---*/
 
+        private void AlertOfCantUse()
+        {
+            ui.Alert("조건을 숙지하고 다시 입력해주세요", "다시 입력해!", "<<< E N T E R >>>");
+                Console.Read();
+        }
+
+
         public void SetID(out string id)   //유저 회원가입을 위해 아이디를 입력받는 함수 
         {
             while (true)
             {
-                ui.GetDataUIWithGuide("아이디는 영어 (숫자 포함 가능) 4 ~ 10글자, 한글,공백,특수문자는 불가, \n " +
-                    "다른 유저와 중복되는 아이디도 사용이 불가합니다.",
-                    "사용할 아이디를 입력하세요 : "
+                ui.DataUIWithGuide("사용할 아이디를 입력하세요",
+                    guideForEnglish:"필수 포함",
+                    guideForKorean:"불가",
+                    guideForNumber:"첫 글자 불가, 영어와 함께 사용 가능",
+                    guideForSpecicalCharacter:"불가",
+                    guideForBlank : "불가",
+                    specialGuide : "다른 유저와 이름이 겹치면 사용 불가, 4~10글자 사용가능"
                     );
 
                 id = exception.InputString();
@@ -38,10 +49,16 @@ namespace Study._03_Library__최사원
                     return;
 
                 if (librarySystem.IsAlreadyUsedID(id))  //사용하고 있는 아이디면 다시 입력받기
+                {
+                    ui.Alert("다른 유저가 사용중인 아이디 입니다.", warning3: "<<Enter>>");
+                    Console.Read();
                     continue;
+                }
+
                 else if (exception.ID(id))
                     break;
 
+                AlertOfCantUse();
             }
         }
 
@@ -49,25 +66,29 @@ namespace Study._03_Library__최사원
         {
             while (true)
             {
-                ui.GetDataUIWithGuide("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글, 공백 불가. ",
+                ui.DataUIWithGuide("비밀번호는 영어, 숫자, 특수문자 포함 8 ~ 16글자, 한글, 공백 불가. ",
                     "사용할 비밀번호를 입력하세요 : "
+                    );
+                ui.DataUIWithGuide("사용할 비밀번호를 입력하세요",
+                    guideForEnglish:"필수",
+                    guideForKorean:"불가",
+                    guideForBlank:"불가",
+                    guideForNumber:"필수",
+                    guideForSpecicalCharacter:"필수",
+                    specialGuide:"8~16글자 사용 가능"
                     );
 
                 password = exception.InputString();
                 if (password == null)
                     return;
 
-                if (exception.Password(password))
-                    break;
+                if (!exception.Password(password))
+                {
+                    AlertOfCantUse();
+                    continue;
+                }
 
-            }
-
-
-            while (true)                    //한 번 더 입력 받아서 확인받아야 함.
-            {
-                ui.GetDataUIWithGuide("",
-                    "비밀번호를 다시 입력하세요 :  "
-                    );
+                ui.DataUIWithGuide("비밀번호를 한 번 더 입력하세요");
 
                 string password2 = exception.InputString();
                 if (password2 == null)
@@ -76,26 +97,38 @@ namespace Study._03_Library__최사원
                     return;
                 }
 
-                if (password == password2)
-                    break;
+                else if (password == password2)
+                    return;
 
+                else
+                {
+                    ui.Alert("비밀번호가 일치하지 않습니다.", "다시 입력해!", "<< E N T E R>>");
+                    Console.Read();
+                }
             }
+
+
         }
 
         public void SetName(out string name)  //회원가입 이름을 입력받는 함수
         {
             while (true)
             {
-                ui.GetDataUIWithGuide("이름은 한글 2~5 글자. 영어, 공백, 특수문자는 불가. ",
-                    "이름을 입력하세요 : "
+         
+                ui.DataUIWithGuide("이름을 입력하세요",
+                    guideForKorean : "자음 모음이 결합된 한글만 사용가능",
+                    specialGuide:"3~5글자 사용가능"
                     );
 
                 name = exception.InputString();
-
+                
                 if (name == null)
                     return;
+
                 if (exception.KoreanName(name))
                     break;
+
+                AlertOfCantUse();
             }
 
         }
@@ -104,9 +137,10 @@ namespace Study._03_Library__최사원
         {
             while (true)
             {
-                ui.GetDataUIWithGuide("휴대폰 번호는 01000000000형식으로 입력하세요. ",
-                       "휴대폰 번호 입력 : "
-                       );
+                ui.DataUIWithGuide("핸드폰 번호를 입력하세요",
+                    guideForNumber:"숫자만 사용가능",
+                    specialGuide:"01000000000형식으로 입력하세요."
+                    );
                 phonenumber = exception.InputString();
 
                 if (phonenumber == null)
@@ -114,6 +148,8 @@ namespace Study._03_Library__최사원
 
                 if (exception.Phonenumber(phonenumber))
                     break;
+
+                AlertOfCantUse();
             }
         }
 
@@ -121,8 +157,10 @@ namespace Study._03_Library__최사원
         {
             while (true)
             {
-                ui.GetDataUIWithGuide("주소를 입력하세요 (숫자 필수 포함). 영어 입력 불가",
-                       "주소 입력 : "
+                ui.DataUIWithGuide("주소를 입력하세요 : ",
+                       guideForEnglish: "불가",
+                       guideForSpecicalCharacter : " '-' 만 사용가능",
+                       guideForNumber: "필수"
                        );
 
                 Console.WriteLine();
@@ -134,6 +172,8 @@ namespace Study._03_Library__최사원
 
                 if (exception.Address(address))
                     break;
+
+                AlertOfCantUse();
             }
         }
 
@@ -248,14 +288,18 @@ namespace Study._03_Library__최사원
                 }
 
                 if (who == Constants.USER)  //유저모드라면 
-                    Console.Write(" \n\n   대출이나 반납을 원하시는 책 번호를 입력하세요 (q버튼 : 뒤로가기) : ");
+                    Console.Write(" \n\n   대출이나 반납을 원하시는 책 번호를 입력하세요 ( 0 : 뒤로가기) : ");
 
                 else  //관리자 모드라면
-                    Console.Write(" \n\n   수량 수정이나 책 삭제를 원하는 책 번호를 입력하세요. (q버튼 : 뒤로가기) : ");
+                    Console.Write(" \n\n   수량 수정이나 책 삭제를 원하는 책 번호를 입력하세요. ( 0 : 뒤로가기) : ");
 
                 string input = Console.ReadLine();
 
-                if (exception.OnlyNumberCheck(input))
+
+                if (input == Constants.EXIT)
+                    return;
+
+                else if (exception.OnlyNumberCheck(input))
                 {
 
                     int index = int.Parse(input) - 1;
@@ -264,13 +308,10 @@ namespace Study._03_Library__최사원
                     {
                         BookMenu(bookList[index], who);  //입력받는 값이 책 번호 범위내에 있으면 북 메뉴로 넘어간다.
                         return;
+
                     }
-
-
                 }
 
-                else if (input == "q")
-                    return;
             }
         }
 
@@ -397,7 +438,7 @@ namespace Study._03_Library__최사원
 
                 string check = Console.ReadLine(); //검색할 단어
 
-                if (check == "q") //q -> 함수 종료
+                if (check == Constants.EXIT) //함수 종료
                     return;
 
                 foreach (BookVO book in bookData)  
@@ -457,7 +498,7 @@ namespace Study._03_Library__최사원
 
                 bookData = "";
 
-                ui.GetDataUIWithGuide("특수문자와 숫자로만 되어 있는 이름은 불가능합니다.", Guide);
+                ui.DataUIWithGuide("특수문자와 숫자로만 되어 있는 이름은 불가능합니다.", Guide);
 
                 bookData = Console.ReadLine();
 
@@ -483,7 +524,7 @@ namespace Study._03_Library__최사원
 
             while (true)
             {
-                ui.GetDataUIWithGuide("숫자만 입력 가능합니다.", "책 수량을 입력하세요 : ");
+                ui.DataUIWithGuide("숫자만 입력 가능합니다.", "책 수량을 입력하세요 : ");
 
                 int? button = exception.Button();
 
@@ -551,14 +592,16 @@ namespace Study._03_Library__최사원
                 index++;
             }
 
-            Console.Write(" \n\n  반납을 원하시는 책 번호를 입력하세요 (q버튼 : 뒤로가기) : "); //바로 반납할 수 있도록
+            Console.Write(" \n\n  반납을 원하시는 책 번호를 입력하세요 (0 : 뒤로가기) : "); //바로 반납할 수 있도록
 
             string input = Console.ReadLine();
 
-            index = 0;
+            if (input == Constants.EXIT)
+                return;
 
-            if (exception.OnlyNumberCheck(input))
+            else if (exception.OnlyNumberCheck(input))
             {
+                index = 0;
 
                 index = int.Parse(input) - 1;
 
@@ -571,8 +614,6 @@ namespace Study._03_Library__최사원
 
             }
 
-            else if (input == "q")
-                return;
         }
 
 

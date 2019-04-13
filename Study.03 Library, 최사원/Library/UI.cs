@@ -12,12 +12,6 @@ namespace Study._03_Library__최사원
         public UI()
         { }
 
-         void Alert(string warning)
-        {
-
-
-        }
-
         public void DeleteReadLine(int length)
         {
             for (int i = 0; i < length; i++)
@@ -82,7 +76,7 @@ namespace Study._03_Library__최사원
             Console.WriteLine("{0}", text);
 
             Console.SetCursorPosition(Constants.SEARCHING_BOOK_INPUT_X, Constants.SEARCHING_BOOK_INPUT_Y);
-            Console.Write("책 검색 (q : 뒤로가기) : ");
+            Console.Write("책 검색 (0 : 뒤로가기) : ");
 
         }
 
@@ -134,24 +128,30 @@ namespace Study._03_Library__최사원
 
         public void Alert(string warning, string warning2 = "", string warning3 = "") // 사용자 알림 ui. 최대 3줄의 안내를 제공한다.
         {
+            
             Console.Clear();
-            Console.SetWindowSize(73, 14);
-            string text = System.IO.File.ReadAllText(@"txt\Alert.txt", Encoding.Default); 
+            Console.SetWindowSize(73, 17);
+
+            string text = System.IO.File.ReadAllText(@"txt\Alert.txt", Encoding.Default);
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("{0}", text);
+            Console.ForegroundColor = ConsoleColor.White;
+
             Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME);
             Console.Write(warning);
+
+
             if (warning2 != "")
             {
-                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 2);
+                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 4);
                 Console.Write(warning2);
 
             }
 
-
             if (warning3 != "")
             {
 
-                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 4);
+                Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME + 8);
                 Console.Write(warning3);
 
             }
@@ -164,7 +164,7 @@ namespace Study._03_Library__최사원
         public void IntroUI()
         {
             Console.Clear();
-            Console.SetWindowSize(42, 24);
+            Console.SetWindowSize(42, 18);
             string text = System.IO.File.ReadAllText(@"txt\Intro.txt", Encoding.Default);
             Console.Write("{0}", text);
         }
@@ -209,25 +209,59 @@ namespace Study._03_Library__최사원
             Console.Write("{0}", text);
         }
 
-        public void GetDataUI() 
+        public void DataUI() 
         {
             Console.Clear();
-            Console.SetWindowSize(73, 17);
+            Console.SetWindowSize(73, 25);
             string text = System.IO.File.ReadAllText(@"txt\SingInUI.txt", Encoding.Default);
             Console.Write("{0}", text);
         }
 
 
         /* 가이드 까지 출력해 줄 GETDATA UI함수*/
-        public void GetDataUIWithGuide(string warningForGuide, string inputGuide)
+        public void DataUIWithGuide(string inputGuide,
+                                       string guideForEnglish ="",
+                                       string guideForKorean ="",
+                                       string guideForNumber ="",
+                                       string guideForSpecicalCharacter ="",
+                                       string guideForBlank = "",
+                                       string specialGuide = ""
+                                       )
         {
-            GetDataUI();
-                Console.SetCursorPosition(0, Constants.SIGNIN_FRAME_Y+3);
-                Console.Write(warningForGuide);
-                Console.SetCursorPosition(Constants.SIGNIN_FRAME_X, Constants.SIGNIN_FRAME_Y);
-                Console.Write(inputGuide);
-            
+            DataUI();
+
+            Console.SetCursorPosition(0, Constants.SIGNIN_FRAME_Y +2);
+
+            if (guideForEnglish != "")
+                PrintGuideline("영어 : ", guideForEnglish);
+
+            if (guideForKorean != "")
+                PrintGuideline("한국어 : ", guideForKorean);
+
+            if (guideForNumber != "")
+                PrintGuideline("숫자 : ", guideForNumber);
+
+            if (guideForSpecicalCharacter != "")
+                PrintGuideline("특수문자 : ", guideForSpecicalCharacter);
+
+            if (guideForBlank != "")
+                PrintGuideline("공백 : ", guideForBlank);
+
+            if (specialGuide!= "")
+                PrintGuideline("\n", specialGuide);
+
+            Console.SetCursorPosition(0, Constants.SIGNIN_FRAME_Y);
+            Console.Write(inputGuide + " : ");
         }
 
-}
+        void PrintGuideline(string thisCharacter, string conditon)
+       {
+            Console.Write("\n\n");
+            Console.Write(" {0} ", thisCharacter);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(conditon);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+    }
 } 

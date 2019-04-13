@@ -88,7 +88,9 @@ namespace Study._03_Library__최사원
             foreach (UserVO user in userData)
             {
                 if (user.ID == inputID)
+                {
                     return true;
+                }
             }
 
             return false;
