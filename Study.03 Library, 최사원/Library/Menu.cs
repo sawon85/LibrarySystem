@@ -32,7 +32,11 @@ namespace Study._03_Library__최사원
                     "사용할 아이디를 입력하세요 : "
                     );
 
-                id = Console.ReadLine();
+                id = exception.InputString();
+
+                if (id == null)
+                    return;
+
                 if (librarySystem.IsAlreadyUsedID(id))  //사용하고 있는 아이디면 다시 입력받기
                     continue;
                 else if (exception.ID(id))
@@ -49,7 +53,10 @@ namespace Study._03_Library__최사원
                     "사용할 비밀번호를 입력하세요 : "
                     );
 
-                password = Console.ReadLine();
+                password = exception.InputString();
+                if (password == null)
+                    return;
+
                 if (exception.Password(password))
                     break;
 
@@ -62,7 +69,12 @@ namespace Study._03_Library__최사원
                     "비밀번호를 다시 입력하세요 :  "
                     );
 
-                string password2 = Console.ReadLine();
+                string password2 = exception.InputString();
+                if (password2 == null)
+                {
+                    password = null;
+                    return;
+                }
 
                 if (password == password2)
                     break;
@@ -77,7 +89,11 @@ namespace Study._03_Library__최사원
                 ui.GetDataUIWithGuide("이름은 한글 2~5 글자. 영어, 공백, 특수문자는 불가. ",
                     "이름을 입력하세요 : "
                     );
-                name = Console.ReadLine();
+
+                name = exception.InputString();
+
+                if (name == null)
+                    return;
                 if (exception.KoreanName(name))
                     break;
             }
@@ -91,7 +107,11 @@ namespace Study._03_Library__최사원
                 ui.GetDataUIWithGuide("휴대폰 번호는 01000000000형식으로 입력하세요. ",
                        "휴대폰 번호 입력 : "
                        );
-                phonenumber = Console.ReadLine();
+                phonenumber = exception.InputString();
+
+                if (phonenumber == null)
+                    return;
+
                 if (exception.Phonenumber(phonenumber))
                     break;
             }
@@ -104,8 +124,14 @@ namespace Study._03_Library__최사원
                 ui.GetDataUIWithGuide("주소를 입력하세요 (숫자 필수 포함). 영어 입력 불가",
                        "주소 입력 : "
                        );
+
                 Console.WriteLine();
-                address = Console.ReadLine();
+
+                address = exception.InputString();
+
+                if (address == null)
+                    return;
+
                 if (exception.Address(address))
                     break;
             }
@@ -117,14 +143,19 @@ namespace Study._03_Library__최사원
             string id, password, name, phonenumber, address;
 
             SetID(out id);
+            if (id == null) return;
 
             SetPassword(out password);
+            if (password == null) return;
 
             SetName(out name);
+            if (name == null) return;
 
             SetPhonenumber(out phonenumber);
+            if (phonenumber == null) return;
 
             SetAddress(out address);
+            if (address == null) return;
 
             librarySystem.SignIn(id, password, name, address, phonenumber);  //저장
 
@@ -143,13 +174,8 @@ namespace Study._03_Library__최사원
                 switch (exception.Button())
                 {
                     case Constants.LOGIN:
-                        if (Login())
-                            UserMenu();
-                        else
-                            ui.Alert("로그인에 실패하셨습니다,.", warning3: "<<Enter>>");  //로그인 실패 시에 완료
-                        Console.Read();  //엔터 누르면 삭제
+                        Login();
                         break;
-
 
                     case Constants.SIGNIN:
                         SignIn();
@@ -159,30 +185,41 @@ namespace Study._03_Library__최사원
 
         }
 
-        public bool Login()
+        private void Login()
+        {
+            switch (GetIdAndPassword())
+            {
+                case true: UserMenu();
+                    break;
+
+                case false:
+
+                    ui.Alert("로그인에 실패하셨습니다,.", warning3: "<<Enter>>");  //로그인 실패 시에 완료
+                    Console.Read();  //엔터 누르면 삭제
+                    return;
+
+                case null:
+                    return;
+            }
+        }
+
+
+        public bool? GetIdAndPassword()
         {
             ui.LoginUI();
 
             Console.SetCursorPosition(26,9);   //아이디 입력받는 위치
-            string inputID = Console.ReadLine();
+            string inputID = exception.InputString();
+            if (inputID == null) return null;
+
             Console.SetCursorPosition(29,11);    //비밀번호 입력받는 위치
-            string inputPassword = Console.ReadLine();
+            string inputPassword = exception.InputString();
+            if (inputPassword == null) return null;
 
             return librarySystem.Login(inputID, inputPassword); //로그인이 가능한지 데이터를 비교해서 library함수에서 BOOL형을 반환
         }
 
         /*---USER---*/
-
-        private void WhatBookBorrowed(UserVO user)       // 주석 다는 중..... 이 함수는 왜 있지?
-        {
-
-            for (int i = 0; i < user.BorrowingBooks.Count; i++)
-            {
-                Console.WriteLine("빌린 책 : " + user.BorrowingBooks[i].book.BookName);
-                Console.WriteLine("반납 날짜" + string.Format("{0:yyyy년 MM월 dd일}", user.BorrowingBooks[i].returnDate));
-            }
-
-        }
 
         /*---BOOK---*/
 

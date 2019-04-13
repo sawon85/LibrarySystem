@@ -15,9 +15,14 @@ namespace Study._03_Library__최사원
         private int numberOfBook;
         private int numberOfLoans;
 
-        BookVO()
+        public BookVO(int code, string bookName, string publisher, string writer, int numberOfBook = 1)
         {
-            numberOfLoans = 0;
+            this.code = code;
+            this.bookName = bookName;
+            this.publisher = publisher;
+            this.writer = writer;
+            this.numberOfBook = numberOfBook;
+
         }
 
         public string BookName
@@ -70,16 +75,6 @@ namespace Study._03_Library__최사원
             {
                 numberOfLoans = value;
             }
-        }
-
-        public BookVO(int code, string bookName, string publisher, string writer, int numberOfBook = 1)
-        {
-            this.code = code;
-            this.bookName = bookName;
-            this.publisher = publisher;
-            this.writer = writer;
-            this.numberOfBook = numberOfBook;
-           
         }
 
         public void newBook(int numberOfBook)

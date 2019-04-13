@@ -77,10 +77,11 @@ namespace Study._03_Library__최사원
         public bool KoreanCheck(string sentence)
         {
             Regex koreanCheck1 = new Regex("(?=.*[ㄱ-ㅎ]).{1}");
-
             Match match1 = koreanCheck1.Match(sentence);
+            Regex koreanCheck2 = new Regex("(?=.*[가-힣]).{1}");
+            Match match2 = koreanCheck2.Match(sentence);
 
-            if (match1.Success)
+            if (match1.Success || match2.Success)
                 return true;
 
             else
@@ -110,6 +111,15 @@ namespace Study._03_Library__최사원
             return false;
         }
 
+        public bool IsNormalChar(string character)
+        {
+            if (NumberCheck(character) || EnglishCheck(character) || KoreanCheck(character) || SpecialCharacterCheck(character) || character == " ")
+                return true;
+
+            return false;
+
+        }
+
         /*---회원가입 정규식--*/
 
         public bool KoreanName(string name)
@@ -129,10 +139,10 @@ namespace Study._03_Library__최사원
         {
             Regex idMatch1 = new Regex("(^([a-zA-z])(?=.*[0-9])).{4,10}$");
             Regex idMatch2 = new Regex("^[a-zA-z]{4,10}$");
-       
+
             Match match1 = idMatch1.Match(id);
             Match match2 = idMatch2.Match(id);
-         
+
             if ((match1.Success || match2.Success) && id.Length < 11 && !SpecialCharacterCheck(id) && !SpaceCheck(id) && !KoreanCheck(id))
                 return true;
 
@@ -191,7 +201,7 @@ namespace Study._03_Library__최사원
             Regex koreanCheck1 = new Regex("(?=.*[가-힣]).{1}");
 
             Match match1 = koreanCheck1.Match(bookData);
-     
+
 
             if (BlankCheck(bookData))
                 return false;
@@ -225,16 +235,58 @@ namespace Study._03_Library__최사원
         {
             string button;
 
-   
-                button = Console.ReadLine();
 
-                if (OnlyNumberCheck(button))
-                {
-                    return int.Parse(button);
-                }
+            button = Console.ReadLine();
+
+            if (OnlyNumberCheck(button))
+            {
+                return int.Parse(button);
+            }
 
             return null;
-   
+
+        }
+
+        /*문자 입력 + 종료 이벤트 발생*/
+
+        public string InputString()
+        {
+            string sentence = "";
+
+            while (true)
+            {
+                var key = Console.ReadKey();
+
+
+                if (key.Key == ConsoleKey.Escape)
+                    return null;
+
+                else if (IsNormalChar(key.KeyChar.ToString()))
+                {
+
+                    sentence = sentence + key.KeyChar.ToString();
+                    continue;
+                }
+                else if (key.Key == ConsoleKey.Enter)
+                {
+
+                    return sentence;
+                }
+                else if (key.Key == ConsoleKey.Backspace)
+                {
+                    Console.Write(" ");
+                    if (sentence != "")
+                    {
+                        Console.Write("\b");
+                        sentence = sentence.Substring(0, sentence.Length - 1);
+                    }
+                    continue;
+                }
+
+                else
+                    continue;
+            }
+
         }
     }
 }
