@@ -50,7 +50,8 @@ namespace Study._03_Library__최사원
         public const int BOOK_SETTING= 1;
         public const int NEW_BOOK = 2;
         public const int ALL_OF_USERS= 3;
-        public const int USER_MODE = 4;
+        public const int USER_MODE = 5;
+        public const int SEARCHING_USER = 4;
 
         //Book menu _ USER
         public const int BORROW_BOOK = 1;
@@ -60,6 +61,7 @@ namespace Study._03_Library__최사원
         public const int UPDATE_BOOK_COUNT = 1;
         public const int DELETE_BOOK = 2;
         public const int ADMINISTRATOR_BACK = 3;
+
 
         public const string EXIT = "0";
 

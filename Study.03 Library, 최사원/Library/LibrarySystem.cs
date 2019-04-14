@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Study._03_Library__최사원
@@ -26,8 +23,8 @@ namespace Study._03_Library__최사원
             ui = new UI();
 
             SaveAdministratorData();
-            SavePeopleData();
-            SaveBooksData();
+            InitPeopleData();
+            InitBookData();
         }
 
         /*---사전 데이터---*/
@@ -45,7 +42,7 @@ namespace Study._03_Library__최사원
 
         }
 
-        private void SavePeopleData()
+        private void InitPeopleData()
         {
            
             SetPersonData("aaaaaa", "aaaaaabb", "김영진", "인천광역시 논현동", "01011111111");
@@ -53,7 +50,9 @@ namespace Study._03_Library__최사원
             SetPersonData("cccccc", "cccccccc", "김성엽", "서울특별시 건대 언저리", "01033333333");
             SetPersonData("ffffff", "ffffffff", "짱구", "짱구집", "01066666666");
             SetPersonData("gggggg", "gggggggg", "김예진", "세종대 기숙사", "0107777777");
-            SetPersonData("gggggg", "gggggggg", "해리포터", "호그와트", "0107777777");
+            SetPersonData("hhhhhh", "hhhhhhhh", "해리포터", "호그와트", "01088888888");
+            SetPersonData("iiiiii", "iiiiiiii", "유진", "서울 신도림 언저리", "01099999999");
+            SetPersonData("jjjjjj", "jjjjjjjj", "김수정", "경기도 양평구", "01010101010");
         }
 
         private void SetBookData(string bookName, string publisher, string writer, int numberOfBook)
@@ -62,7 +61,7 @@ namespace Study._03_Library__최사원
             bookData.Add(book);
         }
 
-        private void SaveBooksData()
+        private void InitBookData()
         {
             SetBookData("컴퓨터 시스템 구조론", "삼성", "김원일", 30);
             SetBookData("알고리즘 및 실습", "LG", "국형준", 20);
@@ -76,15 +75,52 @@ namespace Study._03_Library__최사원
             SetBookData("Adventures of Sherlock Homes (Oxford World Classics)(New Jacket)", "Oxford University Press, USA", "Doyle, Arthur Conan ", 1);
             SetBookData("마법천자문. 44: 죄를 씻어 내라! 목욕할 욕", "아울북", "김현수", 9);
             SetBookData("죽고 싶지만 떡볶이는 먹고 싶어", "흔", "백세희", 2);
-            SetBookData("나미야 잡화점의 기적(양장본 HardCover)", "하가시노 게이고", "현대문학", 1);
-            SetBookData("Who? Special 손흥민(아시안 게임 금메달 기념 한정판)(양장본 HardCover) ", "강진희", "다산어린이", 3);
-           
+            SetBookData("나미야 잡화점의 기적(양장본 HardCover)", "현대문학","하가시노 게이고", 1);
+            SetBookData("Who? Special 손흥민(아시안 게임 금메달 기념 한정판)(양장본 HardCover)","다산어린이", "강진희", 3);
+            SetBookData("나는 나로 살기로 했다(100쇄 기념 스페셜 에디션)(양장본 HardCover)", "마음의숲", "김수현", 4);
+            SetBookData("꽃을 보듯 너를 본다(30만부 기념 스페셜 에디션)(J.H CLASSIC 2)(양장본 HardCover)", "지혜", "나태주", 11);
+            SetBookData("이기적 유전자 (40주년 기념판)", "을유문화사", "리처드 도킨스", 8);
+            SetBookData("지적 대화를 위한 넓고 얕은 지식: 현실너머 편", "한빛비즈", "채사장", 1);
+            SetBookData("가면산장 살인사건(양장본 HardCover)","재인", "히가시노 게이고", 3);
+            SetBookData("약간의 거리를 둔다(한정판 고양이 에디션)", "책읽는고양이", "고노 아야코", 0);
+            SetBookData("왜 나는 너를 사랑하는가(개정판)", "청미래", "알랭 드 보통", 11);
+            SetBookData("빨강머리 앤이 하는 말", "아르테(arte)", "백영옥", 8);
+            SetBookData("보통의 존재", "달", "이석원", 20);
+            SetBookData("어쩌면 별들이 너의 슬픔을 가져갈지도 몰라(한정 스페셜 에디션)(감성치유 라이팅북)", "예담", "강용택(엮음)", 2);
+            SetBookData("서랍에 저녁을 넣어 두었다", "문학과지성사", "한강", 1);
+            SetBookData("사랑하라 한번도 상처받지 않은 것처럼", "류시화", "오래된미래", 15);
+            SetBookData("딸아, 외로울 때는 시를 읽으렴", "걷는나무", "신현림(엮음)", 2);
+            SetBookData("석가의 해부학 노트(모든 그림 그리는 이들을 위한)", "성안당", "석정현", 1);
+            SetBookData("마법의 디자인", "우듬지", "사카모토 신지", 2);
+            SetBookData("아몬드(양장본 HardCover)", "창비", "송원평", 1);
+            SetBookData("파도가 바다의 일이라면", "문학동네", "김연수", 0);
+            SetBookData("위저드 베이커리", "창비", "구병모", 8);
+            SetBookData("사서함 110호의 우편물", "시공사", "이도우",1);
+            SetBookData("살인자의 기억법", "문학동네", "김영하", 2);
+            SetBookData("피프티 피플", "창비", "정세랑", 2);
+            SetBookData("난장이가 쏘아 올린 작은 공", "이성과힘", "조세희", 1);
+            SetBookData("나는 나를 파괴할 권리가 있다(3판)", "문학동네", "김영하", 2);
+            SetBookData("추리 천재 엉덩이 탐정. 1: 보라 부인의 암호 사건(양장본 HardCover)", "아이세움", "트롤", 2);
+            SetBookData("설민석의 한국사 대모험. 1", "아이휴먼", "설민석", 2);
+            SetBookData("나의 라임오렌지나무(초등학생을 위한)","동녘주니어", "J. M. 바스콘셀로스", 2);
+            SetBookData("이기적 유전자(40주년 기념판)", "리처드 도킨스", "을유문화사", 13);
+            SetBookData("정재승의 과학 콘서트(개정증보판)", "어크로스", "정재승", 3);
+            SetBookData("아내를 모자로 착각한 남자(개정판)(양장본 HardCover)", "알마", "올이버 색스", 5);
+            SetBookData("페르마의 마지막 정리(개정판)(갈릴레오 총서 3)(양장본 HardCover)", "영람카디널", "사이먼 싱", 12);
+            SetBookData("우리 본성의 선한 천사(사이언스 클래식 24)(양장본 HardCover)", "사이언스북스", "스티븐 핑거", 12);
+            SetBookData("どうしても嫌いな人 す-ちゃんの決心", "幻冬舍", "益田ミリ／[著]", 3);
+            SetBookData("ソロモンの僞證 第3部[上卷] ", "新潮社", "宮部みゆき／著", 1);
+            SetBookData("騎士團長殺し 第２部 遷ろうメタファ-編 ", "村上春樹", "宮部みゆき／著", 1);
+            SetBookData("Charlie und die Schokoladenfabrik", "Rowohlt", "Dahl, Roald", 3);
+            SetBookData("The Philosophy of Snoopy", "Canongate Books", "Schulz, Charles M", 4);
+            SetBookData("SCHRITTE INTERNATIONAL 3: DEUTSCH ALS FREMDSPRACHE KURSBUCH + ARBEITSBUCH MIT AUDIO-CD ZUM ARBEITSB", "Hueber", "Silke Hilpert  ", 23);
+            SetBookData("Le Petit Nicolas", "Gallimard", "Goscinny, Rene", 3);
+
         }
-
-
+        
         /*---User--*/
 
-        public bool IsAlreadyUsedID(string inputID) //사용하고 있는 아이디
+        public bool IsAlreadyUsedID(string inputID) //사용하고 있는 아이
         {
             foreach (UserVO user in userData)
             {

@@ -307,6 +307,57 @@ namespace Study._03_Library__최사원
 
         }
 
+        public string InputPassword()
+        {
+            string sentence = "";
+
+            while (true)
+            {
+                var key = Console.ReadKey();
+
+
+                if (key.Key == ConsoleKey.Escape)
+                    return null;
+
+                else if (IsNormalChar(key.KeyChar.ToString()))
+                {
+
+                    Console.Write("\b");
+                        if (KoreanCheck(key.KeyChar.ToString()))
+                            Console.Write("\b");
+
+                        Console.Write("*");
+                    sentence = sentence + key.KeyChar;
+                    
+                    continue;
+                }
+                else if (key.Key == ConsoleKey.Enter)
+                {
+
+                    return sentence;
+                }
+                else if (key.Key == ConsoleKey.Backspace)
+                {
+                    Console.Write(" ");
+                    if (sentence != "")
+                    {
+                        Console.Write("\b");
+                        sentence = sentence.Substring(0, sentence.Length - 1);
+                    }
+                    continue;
+                }
+
+                else
+                {
+                    Console.Write("\b");
+                    Console.Write(" ");
+                    Console.Write("\b");
+
+                }
+            }
+
+        }
+
         public bool? GetYesOrNo()  //yse가 눌렸는지 no가 눌렸는 지 확인
         {
 

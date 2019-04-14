@@ -82,6 +82,19 @@ namespace Study._03_Library__최사원
 
         }
 
+        public void SearchingUserUI()
+        {
+            Console.Clear();
+            Console.SetWindowSize(56, 15);
+            string text = System.IO.File.ReadAllText(@"txt\SearchingUser.txt", Encoding.Default);
+            Console.WriteLine("{0}", text);
+
+            Console.SetCursorPosition(Constants.SEARCHING_BOOK_INPUT_X, Constants.SEARCHING_BOOK_INPUT_Y);
+            Console.Write("유 저 검색 (0 : 뒤로가기) : ");
+
+        }
+
+
         public void BookUI(string index ="", string bookName = "", string publisher = "", string writer ="", string numberOfBooks ="")
         {
 

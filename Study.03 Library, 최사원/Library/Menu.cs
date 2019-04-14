@@ -78,7 +78,7 @@ namespace Study._03_Library__최사원
                     specialGuide:"8~16글자 사용 가능"
                     );
 
-                password = exception.InputString();
+                password = exception.InputPassword();
                 if (password == null)
                     return;
 
@@ -90,7 +90,7 @@ namespace Study._03_Library__최사원
 
                 ui.DataUIWithGuide("비밀번호를 한 번 더 입력하세요");
 
-                string password2 = exception.InputString();
+                string password2 = exception.InputPassword();
                 if (password2 == null)
                 {
                     password = null;
@@ -254,7 +254,7 @@ namespace Study._03_Library__최사원
             if (inputID == null) return null;
 
             Console.SetCursorPosition(29,18);    //비밀번호 입력받는 위치
-            string inputPassword = exception.InputString();
+            string inputPassword = exception.InputPassword();
             if (inputPassword == null) return null;
 
             return librarySystem.Login(inputID, inputPassword); //로그인이 가능한지 데이터를 비교해서 library함수에서 BOOL형을 반환
@@ -422,7 +422,7 @@ namespace Study._03_Library__최사원
 
                 foreach (BookVO book in bookData)  
                 {
-                    if (exception.Search(check, book.BookName)) // 검색할 단어 모든 책 제목에서 검색 -> 정규식 사용
+                    if (exception.Search(check, book.BookName)|| exception.Search(check, book.Publisher)|| exception.Search(check, book.Writer)) // 검색할 단어 모든 책 제목에서 검색 -> 정규식 사용
                         bookIsSearched.Add(book);   // 책 제목에 포함이 되면 리스트에 추가
                 }
 
@@ -630,7 +630,7 @@ namespace Study._03_Library__최사원
 
             while (true)
             {
-                ui.SearchingBookUI();  //출력 초기화
+                ui.SearchingUserUI();  //출력 초기화
                 userSearched.Clear(); // 리스트 초기화
 
                 string check = Console.ReadLine(); //검색할 단어
@@ -783,12 +783,12 @@ namespace Study._03_Library__최사원
                         ShowUsers(librarySystem.UserData);
                         break;
 
-                    case Constants.USER_MODE:
-                        return;
-
-                    case 5:
+                    case Constants.SEARCHING_USER:
                         SearchingUser(librarySystem.UserData);
                         break;
+
+                    case Constants.USER_MODE:
+                        return;
 
                     case null:
                         continue;
