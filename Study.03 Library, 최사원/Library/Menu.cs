@@ -683,6 +683,11 @@ namespace Study._03_Library__최사원
                     case Constants.ADMINISTRATOR_MODE: //관리자 모드
                         if (librarySystem.IntoAdministratorMode())
                             AdministratorMenu();
+                        else
+                        {
+                            ui.Alert("관리자 아이디만 진입할 수 있습니다.", warning3:"<<< E N T E R >>>");
+                            Console.Read();
+                        }
                         break;
 
                     case Constants.LOGOUT: //로그아웃
@@ -799,25 +804,73 @@ namespace Study._03_Library__최사원
 
         private void ShowUsers(List<UserVO> userList)  //유저 출력
         {
-            
+
+            while (true)
+            {
                 Console.Clear();
                 Console.SetWindowSize(137, 48);
 
 
-                ui.UserUI(ui.Half2Full("유저 아이디"), ui.Half2Full("이름"), ui.Half2Full("핸드폰 번호"), ui.Half2Full("주소"), ui.Half2Full("대출 수"));
+                ui.UserUI(ui.Half2Full("번호"),ui.Half2Full("유저 아이디"), ui.Half2Full("이름"), ui.Half2Full("핸드폰 번호"), ui.Half2Full("주소"), ui.Half2Full("대출 수"));
                 Console.WriteLine();
 
+                int index = 1;
 
                 foreach (UserVO user in userList)
                 {
-                    ui.UserUI(ui.Half2Full(user.ID), ui.Half2Full(user.Name), ui.Half2Full(user.Phonenumber), ui.Half2Full(user.Address), ui.Half2Full(user.BorrowingBooks.Count().ToString()));
-
+                    ui.UserUI(ui.Half2Full((index++).ToString()),ui.Half2Full(user.ID), ui.Half2Full(user.Name), ui.Half2Full(user.Phonenumber), ui.Half2Full(user.Address), ui.Half2Full(user.BorrowingBooks.Count().ToString()));
                 }
 
-            Console.Write("\n\n<< E N T E R >>");
-            Console.Read();
-            return;
+                Console.Write("\n\n 대여 목록을 보고 싶은 유저 번호를 입력하세요 : (0 : 돌아가기) : ");
 
+                string input = Console.ReadLine();
+
+
+                if (input == Constants.EXIT)
+                    return;
+
+                else if (exception.OnlyNumberCheck(input))
+                {
+
+                    index = int.Parse(input) - 1;
+
+                    if (index >= 0 && index < userList.Count)
+                    {
+                        ShowUserBook(userList[index]);
+
+                    }
+                }
+            }
+        }
+
+        private void ShowUserBook(UserVO user)
+        {
+
+            Console.Clear();
+
+            if (user.BorrowingBooks.Count == 0) //빌린 책이 없으면
+            {
+                ui.Alert("현재 빌린 책이 없습니다.", warning3: "<<Enter>>");
+                Console.Read();
+                return;
+            }
+
+
+            Console.SetWindowSize(145, 14);
+            Console.WriteLine("\n < < < 현재 내가 빌린 책 > > > \n\n");
+
+            int index = 1;
+
+            foreach (borrowingBook userBookData in user.BorrowingBooks)  //모든 책 데이터 출력 -> 책 목록과는 다르게 반납날짜를 출력해준다,
+            {
+
+                ui.MyBookUI(ui.Half2Full(index.ToString()), ui.Half2Full(userBookData.book.BookName), ui.Half2Full(string.Format("{0:yyyy년 MM월 dd일}", userBookData.returnDate) + "까지 반납하셔야 됩니다."));
+                Console.WriteLine();
+                index++;
+            }
+
+            Console.WriteLine("<< E N T E R>>");
+            Console.Read();
         }
     }
    }

@@ -78,7 +78,7 @@ namespace Study._03_Library__최사원
             Console.WriteLine("{0}", text);
 
             Console.SetCursorPosition(Constants.SEARCHING_BOOK_INPUT_X, Constants.SEARCHING_BOOK_INPUT_Y);
-            Console.Write("책 검색 (0 : 뒤로가기) : ");
+            Console.Write("책 검 색 (0 : 뒤로가기) : ");
 
         }
 
@@ -90,7 +90,7 @@ namespace Study._03_Library__최사원
             Console.WriteLine("{0}", text);
 
             Console.SetCursorPosition(Constants.SEARCHING_BOOK_INPUT_X, Constants.SEARCHING_BOOK_INPUT_Y);
-            Console.Write("유 저 검색 (0 : 뒤로가기) : ");
+            Console.Write("유 저 검 색 (0 : 뒤로가기) : ");
 
         }
 
@@ -110,14 +110,15 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void UserUI(string userID = "", string userName = "", string userPhonenumber = "", string userAddress = "", string numberOfBooksBoorow = "")
+        public void UserUI(string index = "",string userID = "", string userName = "", string userPhonenumber = "", string userAddress = "", string numberOfBooksBoorow = "")
         {
 
             Console.WriteLine();
 
             if (userID!="" || userName != "" || userPhonenumber != "" || userAddress != "" || numberOfBooksBoorow != "")
 
-                UserUI(PrintOfLine(userID, Constants.USERID_LENGTH_OF_LINE),
+                UserUI(PrintOfLine(index,Constants.INDEX_LENGTH_OF_LINE),
+                    PrintOfLine(userID, Constants.USERID_LENGTH_OF_LINE),
                        PrintOfLine(userName, Constants.USERNAME_LENGTH_OF_LINE),
                        PrintOfLine(userPhonenumber, Constants.PHONENUMBER_LENGTH_OF_LINE),
                        PrintOfLine(userAddress, Constants.ADDRESS_LENGTH_OF_LINE),

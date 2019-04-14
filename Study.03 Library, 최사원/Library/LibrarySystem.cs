@@ -109,7 +109,7 @@ namespace Study._03_Library__최사원
             SetBookData("페르마의 마지막 정리(개정판)(갈릴레오 총서 3)(양장본 HardCover)", "영람카디널", "사이먼 싱", 12);
             SetBookData("우리 본성의 선한 천사(사이언스 클래식 24)(양장본 HardCover)", "사이언스북스", "스티븐 핑거", 12);
             SetBookData("どうしても嫌いな人 す-ちゃんの決心", "幻冬舍", "益田ミリ／[著]", 3);
-            SetBookData("ソロモンの僞證 第3部[上卷] ", "新潮社", "宮部みゆき／著", 1);
+            SetBookData("ソロモンの僞證 第3部[上卷]", "新潮社", "宮部みゆき／著", 1);
             SetBookData("騎士團長殺し 第２部 遷ろうメタファ-編 ", "村上春樹", "宮部みゆき／著", 1);
             SetBookData("Charlie und die Schokoladenfabrik", "Rowohlt", "Dahl, Roald", 3);
             SetBookData("The Philosophy of Snoopy", "Canongate Books", "Schulz, Charles M", 4);

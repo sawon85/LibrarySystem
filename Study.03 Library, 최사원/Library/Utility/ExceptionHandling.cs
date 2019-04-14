@@ -157,7 +157,7 @@ namespace Study._03_Library__최사원
             Match match1 = passwordMatch1.Match(password);
 
 
-            if (match1.Success && EnglishCheck(password) && NumberCheck(password) && !SpaceCheck(password) && !KoreanCheck(password) && password.Length < 16)
+            if (match1.Success && EnglishCheck(password) && SpecialCharacterCheck(password) && NumberCheck(password) && !SpaceCheck(password) && !KoreanCheck(password) && password.Length < 16)
                 return true;
 
             else
@@ -166,7 +166,7 @@ namespace Study._03_Library__최사원
 
         public bool Phonenumber(string phonenumber)
         {
-            Regex phonenumberMatch = new Regex("^010([0-9]{8})");
+            Regex phonenumberMatch = new Regex("^01[016789]([0-9]{8})");
 
             Match match = phonenumberMatch.Match(phonenumber);
 
