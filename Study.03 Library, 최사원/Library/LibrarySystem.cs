@@ -78,6 +78,7 @@ namespace Study._03_Library__최사원
             SetBookData("죽고 싶지만 떡볶이는 먹고 싶어", "흔", "백세희", 2);
             SetBookData("나미야 잡화점의 기적(양장본 HardCover)", "하가시노 게이고", "현대문학", 1);
             SetBookData("Who? Special 손흥민(아시안 게임 금메달 기념 한정판)(양장본 HardCover) ", "강진희", "다산어린이", 3);
+           
         }
 
 

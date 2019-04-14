@@ -160,7 +160,8 @@ namespace Study._03_Library__최사원
                 ui.DataUIWithGuide("주소를 입력하세요 : ",
                        guideForEnglish: "불가",
                        guideForSpecicalCharacter : " '-' 만 사용가능",
-                       guideForNumber: "필수"
+                       guideForNumber: "필수",
+                       specialGuide:"OO시 OO구 OO동 111-11 형식으로 입력 하세요."
                        );
 
                 Console.WriteLine();
@@ -170,7 +171,7 @@ namespace Study._03_Library__최사원
                 if (address == null)
                     return;
 
-                if (exception.Address(address))
+                if (exception.Address2(address) && exception.Address(address))
                     break;
 
                 AlertOfCantUse();
@@ -325,29 +326,6 @@ namespace Study._03_Library__최사원
 
         }
 
-        private bool? GetYesOrNo()  //yse가 눌렸는지 no가 눌렸는 지 확인
-        {
-
-            string yerOrNo = Console.ReadLine();
-
-
-            switch (yerOrNo)
-            {
-
-                case "Y":
-                case "y":
-                    return true;
-
-                case "N":
-                case "n":
-                    return false;
-
-                default:
-                    return null;  //입력을 하나라도 받고 그 입력이 y나 n이 아니면 그 입력을 지우기 위해 null값으로 판단을 해준다.
-
-            }
-        }
-
         private bool DoesReturn(BookVO book, DateTime? returnTime)  
         {
             while (true)
@@ -357,7 +335,7 @@ namespace Study._03_Library__최사원
                    "반납하시겠습니까 (Y/N)?"
                    );   //반납 팝업 출력
 
-                switch (GetYesOrNo())
+                switch (exception.GetYesOrNo())
                 {
 
                     case true: return true;
@@ -377,7 +355,7 @@ namespace Study._03_Library__최사원
                    "대출하시겠습니까 (Y/N)?"
                    );  //대출 팝업 출력
 
-                switch (GetYesOrNo())
+                switch (exception.GetYesOrNo())
                 {
 
                     case true: return true;
@@ -451,6 +429,8 @@ namespace Study._03_Library__최사원
                 ShowBooks(bookIsSearched, who); // 이 리스트를 이용해 Showbook을 재 사용.
             }
         }
+
+
 
         private void Administrator_BookMenu(BookVO book) // 관리자 bookmenu
         {
@@ -644,6 +624,34 @@ namespace Study._03_Library__최사원
             }
 
         }
+        private void SearchingUser(List<UserVO> userData) // 책 검색하기
+        {
+            List<UserVO> userSearched= new List<UserVO>();  //와일문 밖으로 빼서 선언 후 생성.
+
+            while (true)
+            {
+                ui.SearchingBookUI();  //출력 초기화
+                userSearched.Clear(); // 리스트 초기화
+
+                string check = Console.ReadLine(); //검색할 단어
+
+                if (check == Constants.EXIT) //함수 종료
+                    return;
+
+                foreach (UserVO user in userData)
+                {
+                    if (exception.Search(check, user.Name) ||
+                        exception.Search(check,user.ID)||
+                        exception.Search(check,user.Address)
+                        ) // 검색할 단어 모든 책 제목에서 검색 -> 정규식 사용
+                        userSearched.Add(user);   // 책 제목에 포함이 되면 리스트에 추가
+                }
+
+                ShowUsers(userSearched); // 이 리스트를 이용해 Showbook을 재 사용.
+                return;
+            }
+        }
+
 
 
         /*--------------------------USER--------------------------*/
@@ -777,6 +785,10 @@ namespace Study._03_Library__최사원
 
                     case Constants.USER_MODE:
                         return;
+
+                    case 5:
+                        SearchingUser(librarySystem.UserData);
+                        break;
 
                     case null:
                         continue;

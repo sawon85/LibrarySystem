@@ -192,6 +192,18 @@ namespace Study._03_Library__최사원
                 return false;
         }
 
+        public bool Address2(string address)
+        {
+            Regex addressMatch = new Regex(@"(^[가-힣]+[시도]\s)([가-힣]+[구시군]\s)?([가-힣]+[구시]\s)?([가-힣]+[면읍]\s)?([가-힣]+[동리로길])");
+
+            Match match = addressMatch.Match(address);
+
+            if (match.Success && !EnglishCheck(address))
+                return true;
+
+            else
+                return false;
+        }
         /*---책 데이터 정규식---*/
 
         public bool BookData(string bookData)
@@ -293,6 +305,29 @@ namespace Study._03_Library__최사원
                 }    
             }
 
+        }
+
+        public bool? GetYesOrNo()  //yse가 눌렸는지 no가 눌렸는 지 확인
+        {
+
+            string yerOrNo = Console.ReadLine();
+
+
+            switch (yerOrNo)
+            {
+
+                case "Y":
+                case "y":
+                    return true;
+
+                case "N":
+                case "n":
+                    return false;
+
+                default:
+                    return null;  //입력을 하나라도 받고 그 입력이 y나 n이 아니면 그 입력을 지우기 위해 null값으로 판단을 해준다.
+
+            }
         }
 
     }

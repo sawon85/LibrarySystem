@@ -29,14 +29,16 @@ namespace Study._03_Library__최사원
             for (int i = 0; i < sHalf.Length; ++i)
 
             {
-
-                if (ch[i] > 0x21 && ch[i] <= 0x7e)
+                 if (ch[i] > 0x21 && ch[i] <= 0x7e)
 
                     ch[i] += (char)0xfee0;
 
                 else if (ch[i] == 0x20)
 
                     ch[i] = (char)0x3000;
+
+                 else if (ch[i] == '!')  //느낌표 전각문자 변환이 되질 않아서 
+                        ch[i] = '！';
 
             }
 
