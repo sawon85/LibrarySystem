@@ -30,7 +30,7 @@ namespace Study._03_Library__최사원
         }
 
 
-        public void SetID(out string id)   //유저 회원가입을 위해 아이디를 입력받는 함수 
+        private void SetID(out string id)   //유저 회원가입을 위해 아이디를 입력받는 함수 
         {
             while (true)
             {
@@ -62,7 +62,7 @@ namespace Study._03_Library__최사원
             }
         }
 
-        public void SetPassword(out string password)  //유저 회원가입을 위해 비밀번호를 입력받는 함수
+        private void SetPassword(out string password)  //유저 회원가입을 위해 비밀번호를 입력받는 함수
         {
             while (true)
             {
@@ -110,7 +110,7 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void SetName(out string name)  //회원가입 이름을 입력받는 함수
+        private void SetName(out string name)  //회원가입 이름을 입력받는 함수
         {
             while (true)
             {
@@ -133,7 +133,7 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void SetPhonenumber(out string phonenumber) //핸드폰 번호를 입력받는 함수
+        private void SetPhonenumber(out string phonenumber) //핸드폰 번호를 입력받는 함수
         {
             while (true)
             {
@@ -153,7 +153,7 @@ namespace Study._03_Library__최사원
             }
         }
 
-        public void SetAddress(out string address) //회원가입 주소를 입력받는 함수
+        private void SetAddress(out string address) //회원가입 주소를 입력받는 함수
         {
             while (true)
             {
@@ -178,7 +178,7 @@ namespace Study._03_Library__최사원
             }
         }
 
-        public void SignIn()
+        private void SignIn()
         {
 
             string id, password, name, phonenumber, address;
@@ -245,7 +245,7 @@ namespace Study._03_Library__최사원
         }
 
 
-        public bool? GetIdAndPassword()
+        private bool? GetIdAndPassword()
         {
             ui.LoginUI();
 
@@ -430,8 +430,6 @@ namespace Study._03_Library__최사원
             }
         }
 
-
-
         private void Administrator_BookMenu(BookVO book) // 관리자 bookmenu
         {
 
@@ -473,8 +471,7 @@ namespace Study._03_Library__최사원
 
         private void GetBookData(out string bookData, string Guide)  //책 데이터 입력 받기 책 데이터 예외는 그렇게 까다롭지 않기 때문에
         {
-
-            
+      
             while (true)
             {
            
@@ -625,6 +622,7 @@ namespace Study._03_Library__최사원
             }
 
         }
+
         private void SearchingUser(List<UserVO> userData) // 책 검색하기
         {
             List<UserVO> userSearched= new List<UserVO>();  //와일문 밖으로 빼서 선언 후 생성.
