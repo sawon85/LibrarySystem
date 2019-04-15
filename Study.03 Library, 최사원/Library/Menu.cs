@@ -457,7 +457,8 @@ namespace Study._03_Library__최사원
                             
                             while(true)
                             {
-                                switch(exception.GetYesOrNo())
+                                ui.Alert("정말 삭제하시겠습니까?", warning3: "<< Y / N ???>>"); //삭제
+                                switch (exception.GetYesOrNo())
                                 {
                                     case true : break;
                                     case false : return;
@@ -553,7 +554,7 @@ namespace Study._03_Library__최사원
 
             librarySystem.NewBook(name, publisher, writer, numberOfBooks);  // 책 데이터 추가
             ui.Alert("책이 추가 되었습니다.\n\n 책 이름 :" + name + "\n 작가 : " + writer + "\n 출판사 : " + publisher
-                + "\n수량 : " + numberOfBooks ,warning3: "\n <<< E N T E R >>>");
+                + "\n 수량 : " + numberOfBooks ,warning3: "<<< E N T E R >>>");
             Console.Read();
         }
 
@@ -599,7 +600,7 @@ namespace Study._03_Library__최사원
             }
 
 
-            Console.SetWindowSize(145,14);
+            Console.SetWindowSize(145,27);
             Console.WriteLine("\n < < < 현재 내가 빌린 책 > > > \n\n");
 
             int index = 1;
@@ -876,7 +877,7 @@ namespace Study._03_Library__최사원
             foreach (borrowingBook userBookData in user.BorrowingBooks)  //모든 책 데이터 출력 -> 책 목록과는 다르게 반납날짜를 출력해준다,
             {
 
-                ui.MyBookUI(ui.Half2Full(index.ToString()), ui.Half2Full(userBookData.book.BookName), ui.Half2Full(string.Format("{0:yyyy년 MM월 dd일}", userBookData.returnDate) + "까지 반납하셔야 됩니다."));
+                ui.MyBookUI(ui.Half2Full(index.ToString()), ui.Half2Full(userBookData.book.BookName), ui.Half2Full(string.Format("{0:yyyy년 MM월 dd일}", userBookData.returnDate) + "까지 반납 예정입니다."));
                 Console.WriteLine();
                 index++;
             }

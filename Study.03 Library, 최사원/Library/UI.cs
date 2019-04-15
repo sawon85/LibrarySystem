@@ -149,7 +149,7 @@ namespace Study._03_Library__최사원
 
         public void Alert(string warning, string warning2 = "", string warning3 = "") // 사용자 알림 ui. 최대 3줄의 안내를 제공한다.
         {
-            
+         
             Console.Clear();
             Console.SetWindowSize(73, 17);
 
