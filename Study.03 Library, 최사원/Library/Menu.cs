@@ -385,9 +385,9 @@ namespace Study._03_Library__최사원
             {
                 if (DoesBorrow(book))  //대여가능, 대여할거야?
                 {
-                    ui.Alert(book.BookName, "반납 날짜는 " + DateTime.Now.AddDays(14).ToLongDateString() + "입니다"); // 대여날짜 팝업
+                    ui.Alert("반납 날짜는 " + DateTime.Now.AddDays(14).ToLongDateString() + "입니다", warning3: "<<< E N T E R>>>"); // 대여날짜 팝업
                     librarySystem.BorrowBook(book); // 책을 빌렸다는 데이터 초기화
-
+                    Console.Read();
                 }
             }
 

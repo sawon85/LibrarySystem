@@ -160,6 +160,7 @@ namespace Study._03_Library__최사원
 
             Console.SetCursorPosition(Constants.ALERT_X_FRAME, Constants.ALERT_Y_FRAME);
             Console.Write(warning);
+          
 
 
             if (warning2 != "")
@@ -177,6 +178,7 @@ namespace Study._03_Library__최사원
 
             }
 
+            Console.SetWindowSize(73, 17);
         }
 
 
