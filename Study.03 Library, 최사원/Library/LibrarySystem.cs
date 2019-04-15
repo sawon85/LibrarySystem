@@ -32,7 +32,7 @@ namespace Study._03_Library__최사원
 
         private void SaveAdministratorData()
         {
-            UserVO administrator = new UserVO(0);
+            UserVO administrator = new UserVO(Constants.ADMINISTRATOR);
             userData.Add(administrator);
         }
 
