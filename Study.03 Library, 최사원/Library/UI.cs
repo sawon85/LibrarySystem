@@ -47,6 +47,7 @@ namespace Study._03_Library__최사원
         }
 
 
+        /*---길이 제한 만큼 출력 하기.---*/
 
         private string PrintOfLine(string sentence, int maximumLengthOfLine)
         {
@@ -70,7 +71,10 @@ namespace Study._03_Library__최사원
             }
         }
 
-        public void SearchingBookUI()
+        /*---------- UI ---------*/
+
+
+        public void SearchingBookUI() //  책 찾기 
         {
             Console.Clear();
             Console.SetWindowSize(56, 15);
@@ -82,7 +86,7 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void SearchingUserUI()
+        public void SearchingUserUI() // 유저 검색 
         {
             Console.Clear();
             Console.SetWindowSize(56, 15);
@@ -110,7 +114,8 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void UserUI(string index = "",string userID = "", string userName = "", string userPhonenumber = "", string userAddress = "", string numberOfBooksBoorow = "")
+        
+        public void UserUI(string index = "",string userID = "", string userName = "", string userPhonenumber = "", string userAddress = "", string numberOfBooksBoorow = "") // 책 출력 UI
         {
 
             Console.WriteLine();
@@ -127,7 +132,7 @@ namespace Study._03_Library__최사원
         }
 
 
-        public void MyBookUI(string index = "", string bookName = "", string returnDate = "")
+        public void MyBookUI(string index = "", string bookName = "", string returnDate = "") // 내가 빌린 책 UI
         {
 
             Console.WriteLine();
@@ -274,7 +279,7 @@ namespace Study._03_Library__최사원
        {
             Console.Write("\n\n");
             Console.Write(" {0} ", thisCharacter);
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Red;  // 조건은 빨간색으로 출력할 예정.
             Console.Write(conditon);
             Console.ForegroundColor = ConsoleColor.White;
         }

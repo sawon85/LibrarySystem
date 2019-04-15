@@ -80,8 +80,10 @@ namespace Study._03_Library__최사원
             Match match1 = koreanCheck1.Match(sentence);
             Regex koreanCheck2 = new Regex("(?=.*[가-힣]).{1}");
             Match match2 = koreanCheck2.Match(sentence);
+            Regex koreanCheck3 = new Regex("(?=.*[ㅏ-ㅣ]).{1}");
+            Match match3 = koreanCheck3.Match(sentence);
 
-            if (match1.Success || match2.Success)
+            if (match1.Success || match2.Success || match3.Success)
                 return true;
 
             else
@@ -92,10 +94,12 @@ namespace Study._03_Library__최사원
         {
 
             Regex koreanCheck = new Regex("(?=.*[ㄱ-ㅎ]).{1}");
+            Regex koreanCheck2 = new Regex("(?=.*[ㅏ-ㅣ]).{1}");
 
             Match match = koreanCheck.Match(sentence);
+            Match match2 = koreanCheck2.Match(sentence);
 
-            if (match.Success)
+            if (match.Success&&match2.Success)
                 return true;
 
             else
@@ -209,7 +213,7 @@ namespace Study._03_Library__최사원
         public bool BookData(string bookData)
         {
 
-            Regex koreanCheck1 = new Regex("(?=.*[가-힣]).{1}");
+            Regex koreanCheck1 = new Regex("(?=.*[가-힣]).{1}"); 
 
             Match match1 = koreanCheck1.Match(bookData);
 
@@ -288,9 +292,9 @@ namespace Study._03_Library__최사원
                     Console.Write(" ");
                     if (sentence != "")
                     {
-                        if(KoreanCheck(sentence[sentence.Length-1].ToString()))
-                            Console.Write("\b");
-                        Console.Write("\b");
+                        if(KoreanCheck(sentence[sentence.Length-1].ToString())) //전각문자 확인
+                            Console.Write("\b\b");
+                        else Console.Write("\b");
                         sentence = sentence.Substring(0, sentence.Length - 1);
                     }
                     continue;
@@ -307,7 +311,7 @@ namespace Study._03_Library__최사원
 
         }
 
-        public string InputPassword()
+        public string InputPassword() // 비밀번호 입력 받는 함수
         {
             string sentence = "";
 
@@ -323,7 +327,7 @@ namespace Study._03_Library__최사원
                 {
 
                     Console.Write("\b");
-                        if (KoreanCheck(key.KeyChar.ToString()))
+                        if (KoreanCheck(key.KeyChar.ToString()))  // 전각문자 확인
                             Console.Write("\b");
 
                         Console.Write("*");

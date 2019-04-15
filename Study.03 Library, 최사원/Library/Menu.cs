@@ -482,6 +482,7 @@ namespace Study._03_Library__최사원
 
 
                 ui.DataUIWithGuide(Guide,
+                    guideForKorean: "자음 모음 분리 형태만 사용 불가",
                     guideForSpecicalCharacter: "특수문자만 사용 불가",
                     guideForBlank: "공백만 사용 불가",
                     guideForNumber: "숫자만 사용 불가"
@@ -816,7 +817,7 @@ namespace Study._03_Library__최사원
 
                 int index = 1;
 
-                foreach (UserVO user in userList)
+                foreach (UserVO user in userList) //모든 유저
                 {
                     ui.UserUI(ui.Half2Full((index++).ToString()),ui.Half2Full(user.ID), ui.Half2Full(user.Name), ui.Half2Full(user.Phonenumber), ui.Half2Full(user.Address), ui.Half2Full(user.BorrowingBooks.Count().ToString()));
                 }
@@ -843,7 +844,7 @@ namespace Study._03_Library__최사원
             }
         }
 
-        private void ShowUserBook(UserVO user)
+        private void ShowUserBook(UserVO user) // 유저가 빌린 책을 보여주기
         {
 
             Console.Clear();
@@ -857,7 +858,7 @@ namespace Study._03_Library__최사원
 
 
             Console.SetWindowSize(145, 14);
-            Console.WriteLine("\n < < < 현재 내가 빌린 책 > > > \n\n");
+            Console.WriteLine("\n < < < {0} 님이 빌린 책 > > > \n\n", user.Name);
 
             int index = 1;
 

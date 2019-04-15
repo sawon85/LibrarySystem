@@ -44,7 +44,7 @@ namespace Study._03_Library__최사원
 
         private void InitPeopleData()
         {
-           
+
             SetPersonData("aaaaaa", "aaaaaabb", "김영진", "인천광역시 논현동", "01011111111");
             SetPersonData("bbbbbb", "bbbbbbbb", "김도훈", "경기도 부천시", "01022222222");
             SetPersonData("cccccc", "cccccccc", "김성엽", "서울특별시 건대 언저리", "01033333333");
@@ -75,13 +75,13 @@ namespace Study._03_Library__최사원
             SetBookData("Adventures of Sherlock Homes (Oxford World Classics)(New Jacket)", "Oxford University Press, USA", "Doyle, Arthur Conan ", 1);
             SetBookData("마법천자문. 44: 죄를 씻어 내라! 목욕할 욕", "아울북", "김현수", 9);
             SetBookData("죽고 싶지만 떡볶이는 먹고 싶어", "흔", "백세희", 2);
-            SetBookData("나미야 잡화점의 기적(양장본 HardCover)", "현대문학","하가시노 게이고", 1);
-            SetBookData("Who? Special 손흥민(아시안 게임 금메달 기념 한정판)(양장본 HardCover)","다산어린이", "강진희", 3);
+            SetBookData("나미야 잡화점의 기적(양장본 HardCover)", "현대문학", "하가시노 게이고", 1);
+            SetBookData("Who? Special 손흥민(아시안 게임 금메달 기념 한정판)(양장본 HardCover)", "다산어린이", "강진희", 3);
             SetBookData("나는 나로 살기로 했다(100쇄 기념 스페셜 에디션)(양장본 HardCover)", "마음의숲", "김수현", 4);
             SetBookData("꽃을 보듯 너를 본다(30만부 기념 스페셜 에디션)(J.H CLASSIC 2)(양장본 HardCover)", "지혜", "나태주", 11);
             SetBookData("이기적 유전자 (40주년 기념판)", "을유문화사", "리처드 도킨스", 8);
             SetBookData("지적 대화를 위한 넓고 얕은 지식: 현실너머 편", "한빛비즈", "채사장", 1);
-            SetBookData("가면산장 살인사건(양장본 HardCover)","재인", "히가시노 게이고", 3);
+            SetBookData("가면산장 살인사건(양장본 HardCover)", "재인", "히가시노 게이고", 3);
             SetBookData("약간의 거리를 둔다(한정판 고양이 에디션)", "책읽는고양이", "고노 아야코", 0);
             SetBookData("왜 나는 너를 사랑하는가(개정판)", "청미래", "알랭 드 보통", 11);
             SetBookData("빨강머리 앤이 하는 말", "아르테(arte)", "백영옥", 8);
@@ -95,14 +95,14 @@ namespace Study._03_Library__최사원
             SetBookData("아몬드(양장본 HardCover)", "창비", "송원평", 1);
             SetBookData("파도가 바다의 일이라면", "문학동네", "김연수", 0);
             SetBookData("위저드 베이커리", "창비", "구병모", 8);
-            SetBookData("사서함 110호의 우편물", "시공사", "이도우",1);
+            SetBookData("사서함 110호의 우편물", "시공사", "이도우", 1);
             SetBookData("살인자의 기억법", "문학동네", "김영하", 2);
             SetBookData("피프티 피플", "창비", "정세랑", 2);
             SetBookData("난장이가 쏘아 올린 작은 공", "이성과힘", "조세희", 1);
             SetBookData("나는 나를 파괴할 권리가 있다(3판)", "문학동네", "김영하", 2);
             SetBookData("추리 천재 엉덩이 탐정. 1: 보라 부인의 암호 사건(양장본 HardCover)", "아이세움", "트롤", 2);
             SetBookData("설민석의 한국사 대모험. 1", "아이휴먼", "설민석", 2);
-            SetBookData("나의 라임오렌지나무(초등학생을 위한)","동녘주니어", "J. M. 바스콘셀로스", 2);
+            SetBookData("나의 라임오렌지나무(초등학생을 위한)", "동녘주니어", "J. M. 바스콘셀로스", 2);
             SetBookData("이기적 유전자(40주년 기념판)", "리처드 도킨스", "을유문화사", 13);
             SetBookData("정재승의 과학 콘서트(개정증보판)", "어크로스", "정재승", 3);
             SetBookData("아내를 모자로 착각한 남자(개정판)(양장본 HardCover)", "알마", "올이버 색스", 5);
@@ -117,7 +117,7 @@ namespace Study._03_Library__최사원
             SetBookData("Le Petit Nicolas", "Gallimard", "Goscinny, Rene", 3);
 
         }
-        
+
         /*---User--*/
 
         public bool IsAlreadyUsedID(string inputID) //사용하고 있는 아이
@@ -132,6 +132,7 @@ namespace Study._03_Library__최사원
 
             return false;
         }
+
         public void SignIn(string id, string password, string name, string address, string phonenumber)
         {
 
@@ -179,13 +180,13 @@ namespace Study._03_Library__최사원
         {
             if (loginUser.Code == Constants.ADMINISTRATOR)
             {
-                ui.Alert("관리자는 탈퇴하실 수 없습니다.","","<<ENTER>>");  //팝업
+                ui.Alert("관리자는 탈퇴하실 수 없습니다.", "", "<<ENTER>>");  //팝업
                 Console.Read();
                 return false;
             }
             if (loginUser.BorrowingBooks.Count > 0)
             {
-                ui.Alert("책을 모두 반납하신 후에 이용하세요.","","<<ENTER>>");
+                ui.Alert("책을 모두 반납하신 후에 이용하세요.", "", "<<ENTER>>");
                 Console.Read();
                 return false;
             }
@@ -260,13 +261,13 @@ namespace Study._03_Library__최사원
         {
             Console.Clear();
             Console.SetWindowSize(37, 15);
-            
+
 
             Console.WriteLine("\n 아이디 : {0} \n", loginUser.ID);
 
-            Console.WriteLine(" 이름 : {0} \n",loginUser.Name);
+            Console.WriteLine(" 이름 : {0} \n", loginUser.Name);
 
-            Console.WriteLine(" 전화번호 : {0} \n" ,loginUser.Phonenumber);
+            Console.WriteLine(" 전화번호 : {0} \n", loginUser.Phonenumber);
 
             Console.WriteLine(" 주소 : \n  {0} \n \n \n ", loginUser.Address);
 
@@ -279,8 +280,8 @@ namespace Study._03_Library__최사원
 
         public void UserSetting(string password = "", string phonenumber = "", string address = "") //유저 정보 변경
         {
-            if(password!="")
-            loginUser.Password = password;
+            if (password != "")
+                loginUser.Password = password;
 
             else if (phonenumber != "")
                 loginUser.Phonenumber = phonenumber;
@@ -323,12 +324,12 @@ namespace Study._03_Library__최사원
 
         public void UpdateNumberOfBook(BookVO book, int numberOfBook)  // 책 수량 변경
         {
-            book.NumberOfBook = numberOfBook; 
+            book.NumberOfBook = numberOfBook;
         }
 
         /*AdministratorMode*/
 
-        public List<BookVO> BookData 
+        public List<BookVO> BookData
         {
             get
             {
@@ -354,7 +355,7 @@ namespace Study._03_Library__최사원
 
         }
 
-        public void NewBook(string name, string publisher, string writer, int numberOfBooks)
+        public void NewBook(string name, string publisher, string writer, int numberOfBooks) // 새로운 책 데이터 추가
         {
 
             BookVO newBook = new BookVO(++bookCount, name, publisher, writer, numberOfBooks);
@@ -362,7 +363,7 @@ namespace Study._03_Library__최사원
             bookData.Add(newBook);
         }
 
-        public void DeleteBook(BookVO book)
+        public void DeleteBook(BookVO book) // 책 삭제
         {
 
             bookData.Remove(book);
