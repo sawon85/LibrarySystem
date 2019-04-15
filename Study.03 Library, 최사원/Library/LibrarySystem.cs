@@ -337,7 +337,7 @@ namespace Study._03_Library__최사원
 
         public void UpdateNumberOfBook(BookVO book, int numberOfBook)  // 책 수량 변경
         {
-            book.NumberOfBook = numberOfBook;
+            book.NumberOfBook = numberOfBook - book.NumberOfLoans;
         }
 
         /*AdministratorMode*/

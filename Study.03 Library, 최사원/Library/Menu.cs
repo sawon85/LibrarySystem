@@ -454,6 +454,17 @@ namespace Study._03_Library__최사원
                                 Console.Read();
                                 return;
                             }
+                            
+                            while(true)
+                            {
+                                switch(exception.GetYesOrNo())
+                                {
+                                    case true : break;
+                                    case false : return;
+                                    case null: continue;
+                                }
+                                break;
+                            }
 
                             librarySystem.DeleteBook(book);
                             ui.Alert("성공적으로 삭제 되었습니다.", warning3: "<<Enter>>"); //삭제
@@ -554,7 +565,9 @@ namespace Study._03_Library__최사원
 
             while (true)
             {
-                ui.Alert("책 개수를 수정합니다.", "현재 전체" + (book.NumberOfBook + book.NumberOfLoans) + "권 있습니다.", "입력 : "); //빌려간 권 수까지 팝업 출력
+                ui.Alert("현재 전체" + (book.NumberOfBook + book.NumberOfLoans) + "권 있습니다." , 
+                    "재고 :" +book.NumberOfBook+ "권 , 대여 : "+ book.NumberOfLoans+"권 있습니다.",  
+                    "입력 : "); //빌려간 권 수까지 팝업 출력
 
                 button = exception.Button();
 
