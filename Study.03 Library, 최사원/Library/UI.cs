@@ -185,7 +185,7 @@ namespace Study._03_Library__최사원
         public void IntroUI()
         {
             Console.Clear();
-            Console.SetWindowSize(64, 27);
+            Console.SetWindowSize(55, 27);
             string text = System.IO.File.ReadAllText(@"txt\Intro2.txt", Encoding.Default);
             Console.Write("{0}", text);
         }

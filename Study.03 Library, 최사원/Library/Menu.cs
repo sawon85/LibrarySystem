@@ -40,7 +40,7 @@ namespace Study._03_Library__최사원
                     guideForNumber:"첫 글자 불가, 영어와 함께 사용 가능",
                     guideForSpecicalCharacter:"불가",
                     guideForBlank : "불가",
-                    specialGuide : "다른 유저와 이름이 겹치면 사용 불가, 4~10글자 사용가능"
+                    specialGuide : "다른 유저와 아이디가 겹치면 사용 불가, 4~10글자 사용가능"
                     );
 
                 id = exception.InputString();
@@ -157,7 +157,7 @@ namespace Study._03_Library__최사원
         {
             while (true)
             {
-                ui.DataUIWithGuide("주소를 입력하세요 : ",
+                ui.DataUIWithGuide("주소를 입력하세요",
                        guideForEnglish: "불가",
                        guideForSpecicalCharacter : " '-' 만 사용가능",
                        guideForNumber: "필수",

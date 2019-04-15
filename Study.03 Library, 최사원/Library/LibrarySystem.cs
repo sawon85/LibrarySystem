@@ -11,6 +11,7 @@ namespace Study._03_Library__최사원
         List<UserVO> userData;
         UserVO loginUser;
         UI ui;
+        ExceptionHandling exception = new ExceptionHandling();
         int userCount = 0;
         int bookCount = 0;
 
@@ -101,10 +102,6 @@ namespace Study._03_Library__최사원
             SetBookData("난장이가 쏘아 올린 작은 공", "이성과힘", "조세희", 1);
             SetBookData("나는 나를 파괴할 권리가 있다(3판)", "문학동네", "김영하", 2);
             SetBookData("추리 천재 엉덩이 탐정. 1: 보라 부인의 암호 사건(양장본 HardCover)", "아이세움", "트롤", 2);
-            SetBookData("설민석의 한국사 대모험. 1", "아이휴먼", "설민석", 2);
-            SetBookData("나의 라임오렌지나무(초등학생을 위한)", "동녘주니어", "J. M. 바스콘셀로스", 2);
-            SetBookData("이기적 유전자(40주년 기념판)", "리처드 도킨스", "을유문화사", 13);
-            SetBookData("정재승의 과학 콘서트(개정증보판)", "어크로스", "정재승", 3);
             SetBookData("아내를 모자로 착각한 남자(개정판)(양장본 HardCover)", "알마", "올이버 색스", 5);
             SetBookData("페르마의 마지막 정리(개정판)(갈릴레오 총서 3)(양장본 HardCover)", "영람카디널", "사이먼 싱", 12);
             SetBookData("우리 본성의 선한 천사(사이언스 클래식 24)(양장본 HardCover)", "사이언스북스", "스티븐 핑거", 12);
@@ -115,6 +112,10 @@ namespace Study._03_Library__최사원
             SetBookData("The Philosophy of Snoopy", "Canongate Books", "Schulz, Charles M", 4);
             SetBookData("SCHRITTE INTERNATIONAL 3: DEUTSCH ALS FREMDSPRACHE KURSBUCH + ARBEITSBUCH MIT AUDIO-CD ZUM ARBEITSB", "Hueber", "Silke Hilpert  ", 23);
             SetBookData("Le Petit Nicolas", "Gallimard", "Goscinny, Rene", 3);
+            SetBookData("설민석의 한국사 대모험. 1", "아이휴먼", "설민석", 2);
+            SetBookData("나의 라임오렌지나무(초등학생을 위한)", "동녘주니어", "J. M. 바스콘셀로스", 2);
+            SetBookData("이기적 유전자(40주년 기념판)", "리처드 도킨스", "을유문화사", 13);
+            SetBookData("정재승의 과학 콘서트(개정증보판)", "어크로스", "정재승", 3);
 
         }
 
@@ -191,6 +192,18 @@ namespace Study._03_Library__최사원
                 return false;
             }
 
+            /*회원 탈퇴 메세지*/
+            while (true)
+            {
+                ui.Alert("정말 회원 탈퇴를 하시겠습니까?", warning3: "<< Y / N ? >> ");
+                switch(exception.GetYesOrNo())
+                {
+                    case true: break;
+                    case false: return false;
+                    case null: continue;
+                }
+                break;
+            }
             userData.Remove(loginUser);
             loginUser = null;
 

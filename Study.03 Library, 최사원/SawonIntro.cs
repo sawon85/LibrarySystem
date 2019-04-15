@@ -47,9 +47,9 @@ namespace Study._03_Library__최사원
 
             Thread.Sleep(200);
 
-            Console.SetWindowSize(63, 19);
+            Console.SetWindowSize(86, 17);
 
-            Console.SetCursorPosition(23, 17);
+            Console.SetCursorPosition(36, 14);
 
 
             Console.Write("<< E N T E R >>");
