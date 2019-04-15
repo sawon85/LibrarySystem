@@ -188,7 +188,7 @@ namespace Study._03_Library__최사원
         public void LoginUI()
         {
             Console.Clear();
-            Console.SetWindowSize(79, 23);
+            Console.SetWindowSize(77, 26);
             string text = System.IO.File.ReadAllText(@"txt\Login.txt", Encoding.Default);
             Console.Write("{0}", text);
         }
